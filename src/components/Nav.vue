@@ -1,15 +1,15 @@
 <template>
   <nav>
-    <router-link to="/labels" class="item">
+    <router-link to="/labels" class="item" active-class="selected">
       <icon name="Label" />
       标签</router-link
     >
 
-    <router-link to="/count" class="item">
+    <router-link to="/count" class="item" active-class="selected">
       <icon name="add" />
       记一笔
     </router-link>
-    <router-link to="/statistics" class="item">
+    <router-link to="/statistics" class="item" active-class="selected">
       <icon name="data" />
       统计
     </router-link>
@@ -38,6 +38,9 @@ nav {
       width: 32px;
       height: 32px;
     }
+  }
+  > .item.selected{
+    background: rgb(251,214,70);
   }
 }
 
