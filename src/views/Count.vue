@@ -1,16 +1,19 @@
 <template>
-    <div>
-        Count.Vue
-        <Nav />
+  <div>
+      <layout>
+        Count.vue
+      </layout>
     </div>
+  
 </template>
 
 <script lang="ts">
-    export default {
-        name: 'Count',    
-    }
+import Layout from '@/components/Layout.vue';
+export default {
+  components: { Layout },
+  name: "Count",
+};
 </script>
 
 <style lang="scss" scoped>
-
 </style>
