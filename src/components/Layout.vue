@@ -23,6 +23,6 @@
 .content{
     flex-grow: 1;
     overflow: auto;
-    border: 3px solid blue;
+
 }
 </style>
