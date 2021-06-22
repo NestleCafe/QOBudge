@@ -1,12 +1,13 @@
 <template>
     <div>
         Count.Vue
+        <Nav />
     </div>
 </template>
 
-<script>
+<script lang="ts">
     export default {
-        
+        name: 'Count',    
     }
 </script>
 
