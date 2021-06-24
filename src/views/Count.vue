@@ -1,29 +1,22 @@
 <template>
   <layout class-prefix="layout">
-    
     <number-pad />
-
     <types />
-
     <notes />
-
-    <new-tag />
-
     <tags />
-    
   </layout>
 </template>
 
 <script lang="ts">
 import Layout from "@/components/Layout.vue";
-import NumberPad from '@/components/Count_NumberPad.vue';
-import Types from '@/components/Count_Types.vue';
-import Notes from '@/components/Count_Notes.vue';
-import Tags from '@/components/Count_Tags.vue';
-import NewTag from '@/components/Count_NewTag.vue';
+import NumberPad from "@/components/Count_NumberPad.vue";
+import Types from "@/components/Count_Types.vue";
+import Notes from "@/components/Count_Notes.vue";
+import Tags from "@/components/Count_Tags.vue";
+
 
 export default {
-  components: { Layout, NumberPad, Types, Notes, Tags, NewTag, },
+  components: { Layout, NumberPad, Types, Notes, Tags, },
   name: "Count",
 };
 </script>
@@ -38,5 +31,4 @@ export default {
 
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
-
 </style>

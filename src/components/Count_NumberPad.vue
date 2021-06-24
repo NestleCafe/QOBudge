@@ -15,7 +15,7 @@
         <button>9</button>
         <button class="ok">完成</button>
         <button class="zero">0</button>
-        <button>.</button>
+        <button class="dot">.</button>
       </div>
     </div>
 </template>
@@ -40,6 +40,8 @@
   .buttons {
     @extend %clearFix;
     > button {
+      font-family: $font-hei;
+      font-size: 22px;
       width: 25%;
       height: 64px;
       float: left;
@@ -47,7 +49,7 @@
       border: none;
       @extend %outerShadow;
       &.delete {
-        font-size: 36px;
+        font-size: 32px;
       }
       &.ok {
         height: 64 * 2px;
@@ -56,6 +58,9 @@
       }
       &.zero {
         width: 25 * 2%;
+      }
+      &.dot{
+        font-weight: bold;
       }
     }
   }

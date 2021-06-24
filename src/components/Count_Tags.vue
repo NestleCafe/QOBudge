@@ -1,6 +1,5 @@
 <template>
   <div>
-      
     <div class="tags">
       <ul class="currentTags">
         <li>衣</li>
@@ -8,6 +7,10 @@
         <li>住</li>
         <li>行</li>
       </ul>
+    </div>
+
+    <div class="newTag">
+      <button>新增标签</button>
     </div>
   </div>
 </template>
@@ -27,7 +30,6 @@ export default {
   display: flex;
   flex-direction: column;
   > .currentTags {
-    align-self: flex-start;
     display: flex;
     flex-wrap: wrap;
     overflow: auto;
@@ -40,6 +42,17 @@ export default {
       margin-right: 14px;
       margin-top: 4px;
     }
-  } 
+  }
+}
+.newTag {
+  font-size: 14px;
+  padding: 16px;
+  button {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #999;
+    color: #999;
+    padding: 0 4px;
+  }
 }
 </style>
