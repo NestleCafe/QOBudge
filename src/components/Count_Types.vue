@@ -1,7 +1,7 @@
 <template>
   <div
     class="typesWrapper"
-    :class="classPrefix && `${classPrefix}-content`"
+    :class="classPrefix && `${classPrefix}-typesWrapper`"
   >
     <ul class="types">
       <li :class="type === '-' && 'selected'" @click="selectType('-')">支出</li>

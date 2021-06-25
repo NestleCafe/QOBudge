@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="tags">
-      <ul class="currentTags">
+      <ul class="currentTags" :class="classPrefix && `${classPrefix}-currentTags`">
         <li>衣</li>
         <li>食</li>
         <li>住</li>
@@ -18,6 +18,7 @@
 <script lang="ts">
 export default {
   name: "Count_Tags",
+  props:['classPrefix'],
 };
 </script>
 
@@ -34,7 +35,7 @@ export default {
     flex-wrap: wrap;
     overflow: auto;
     > li {
-      background: #d9d9d9;
+      background: #F5F5F5;
       $height: 24px;
       line-height: $height;
       padding: 0 16px;

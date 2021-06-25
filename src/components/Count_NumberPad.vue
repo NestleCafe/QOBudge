@@ -9,13 +9,14 @@
         <button>4</button>
         <button>5</button>
         <button>6</button>
-        <button>清空</button>
+        <button class="plus">+</button>
         <button>7</button>
         <button>8</button>
         <button>9</button>
-        <button class="ok">完成</button>
+        <button class="mius">-</button>
         <button class="zero">0</button>
         <button class="dot">.</button>
+        <button class="ok">完成</button>
       </div>
     </div>
 </template>
@@ -52,7 +53,6 @@
         font-size: 32px;
       }
       &.ok {
-        height: 64 * 2px;
         float: right;
         background: $color-highlight;
       }

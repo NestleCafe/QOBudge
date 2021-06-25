@@ -3,7 +3,7 @@
     <number-pad />
     
     <notes />
-    <tags />
+    <tags class-prefix="tags" />
     <types class-prefix="types" />
   </layout>
 </template>
@@ -29,10 +29,14 @@ export default {
   flex-direction: column-reverse;
   position: relative;
 }
-.types-content{
+.types-typesWrapper{
     position: absolute;
     top: 0;
     width: 100%;
+}
+.tags-currentTags{
+  position: absolute;
+  top: 72px;
 }
 </style>
 

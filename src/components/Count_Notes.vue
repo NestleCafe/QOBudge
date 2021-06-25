@@ -1,7 +1,9 @@
 <template>
     <div>
         <label class="notes">
-        <span class="name">备注</span>
+        <span class="name">
+          <icon name="notes" class="icon" />备注
+          </span>
         <input type="text" placeholder="在这里添加备注" />
       </label>
     </div>
@@ -22,9 +24,12 @@
   align-items: center;
   .name {
     padding-right: 16px;
+    .icon{
+      font-size: 16px;
+    }
   }
   input {
-    height: 64px;
+    height: 2.5em;
     flex-grow: 1;
     background: transparent;
     border: none;
