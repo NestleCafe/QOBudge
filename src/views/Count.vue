@@ -1,9 +1,10 @@
 <template>
   <layout class-prefix="layout">
     <number-pad />
-    <types />
+    
     <notes />
     <tags />
+    <types class-prefix="types" />
   </layout>
 </template>
 
@@ -26,6 +27,12 @@ export default {
   border: 3px solid red;
   display: flex;
   flex-direction: column-reverse;
+  position: relative;
+}
+.types-content{
+    position: absolute;
+    top: 0;
+    width: 100%;
 }
 </style>
 
