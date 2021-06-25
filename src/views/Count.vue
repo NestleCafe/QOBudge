@@ -24,19 +24,19 @@ export default {
 
 <style lang="scss">
 .layout-content {
-  border: 3px solid red;
+  
   display: flex;
   flex-direction: column-reverse;
   position: relative;
 }
 .types-typesWrapper{
-    position: absolute;
-    top: 0;
-    width: 100%;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 .tags-currentTags{
-  position: absolute;
-  top: 72px;
+  
+  
 }
 </style>
 
