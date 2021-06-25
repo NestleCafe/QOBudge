@@ -1,18 +1,26 @@
 <template>
-    <div>
-        <label class="notes">
-        <span class="name">
-          <icon name="notes" class="icon" />备注
-          </span>
-        <input type="text" placeholder="在这里添加备注" />
-      </label>
-    </div>
+  <div>
+    <label class="notes">
+      <span class="name"> <icon name="notes" class="icon" />备注 </span>
+      <input type="text" :value="value"
+      @input="onInput" 
+      placeholder="在这里添加备注" />
+    </label>
+  </div>
 </template>
 
 <script lang="ts">
-    export default {
-        name:'Count_Notes',
-    }
+import Vue from "vue";
+import {Component} from "vue-property-decorator";
+
+@Component
+export default class Count_Notes extends Vue {
+  value = '';
+  onInput(event: KeyboardEvent){
+    const input = (event.target as HTMLInputElement);
+    this.value = input.value
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -24,7 +32,7 @@
   align-items: center;
   .name {
     padding-right: 16px;
-    .icon{
+    .icon {
       font-size: 16px;
     }
   }
