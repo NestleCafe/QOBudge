@@ -2,8 +2,7 @@
   <div>
     <label class="notes">
       <span class="name"> <icon name="notes" class="icon" />备注 </span>
-      <input type="text" :value="value"
-      @input="onInput" 
+      <input type="text" v-model="value"
       placeholder="在这里添加备注" />
     </label>
   </div>
@@ -16,10 +15,6 @@ import {Component} from "vue-property-decorator";
 @Component
 export default class Count_Notes extends Vue {
   value = '';
-  onInput(event: KeyboardEvent){
-    const input = (event.target as HTMLInputElement);
-    this.value = input.value
-  }
 }
 </script>
 
