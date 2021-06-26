@@ -1,10 +1,10 @@
 <template>
-  <div class="typesWrapper">
+
     <ul class="types">
       <li :class="type === '-' && 'selected'" @click="selectType('-')">支出</li>
       <li :class="type === '+' && 'selected'" @click="selectType('+')">收入</li>
     </ul>
-  </div>
+
 </template>
 
 <script lang="ts">
@@ -26,11 +26,9 @@ export default class Count_Types extends Vue {
 
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
-.typesWrapper{
-  flex-grow: 1;
-}
+
 .types {
-  margin-top: 0;
+ 
   background: $color-highlight;
   display: flex;
   text-align: center;

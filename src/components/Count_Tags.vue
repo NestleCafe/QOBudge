@@ -5,9 +5,9 @@
         v-for="tag in dataSource"
         :key="tag"
         @click="toggle(tag)"
-        :class="{ selected: selectedTag.indexOf(tag) >= 0 }"
+        :class="{selected: selectedTags.indexOf(tag) >= 0}"
       >
-        {{ tag }}
+        {{ tag }} 
       </li>
     </ul>
   </div>
@@ -20,14 +20,14 @@ import { Component, Prop } from "vue-property-decorator";
 @Component
 export default class Count_Tags extends Vue {
   @Prop() dataSource: string[] | undefined;
-  selectedTag: string[] = [];
+  selectedTags: string[] = [];
   
   toggle(tag: string) {
-    const index = this.selectedTag.indexOf(tag);
+    const index = this.selectedTags.indexOf(tag);
     if (index >= 0) {
-      this.selectedTag.splice(index, 1);
+      this.selectedTags.splice(index, 1);
     } else {
-      this.selectedTag.push(tag);
+      this.selectedTags.push(tag);
     }
   }
 }

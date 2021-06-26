@@ -30,7 +30,6 @@ export default {
 
 <style lang="scss">
 .layout-content {
-  
   display: flex;
   flex-direction: column-reverse;
   position: relative;
