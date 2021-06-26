@@ -4,7 +4,7 @@
     
     <notes />
     <tags class-prefix="tags" />
-    <types class-prefix="types" />
+    <types />
   </layout>
 </template>
 
@@ -28,11 +28,6 @@ export default {
   display: flex;
   flex-direction: column-reverse;
   position: relative;
-}
-.types-typesWrapper{
-  position: fixed;
-  top: 0;
-  width: 100%;
 }
 .tags-currentTags{
   
