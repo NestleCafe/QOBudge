@@ -20,6 +20,7 @@ export default class Count_Notes extends Vue {
 
 <style lang="scss" scoped>
 .notes {
+  overflow-x: hidden;
   font-size: 14px;
   background: #f5f5f5;
   padding-left: 16px;
