@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="typesWrapper"
-    :class="classPrefix && `${classPrefix}-typesWrapper`"
-  >
+  <div class="typesWrapper">
     <ul class="types">
       <li :class="type === '-' && 'selected'" @click="selectType('-')">支出</li>
       <li :class="type === '+' && 'selected'" @click="selectType('+')">收入</li>
@@ -17,7 +14,6 @@ import { Component, Prop } from "vue-property-decorator";
 @Component
 export default class Count_Types extends Vue {
   type = "-"; // '-'表示支出， '+'表示收入
-  @Prop(String) classPrefix: string | undefined
   selectType(type:string) {
     //type只能是'-' 和 '+'
     if (type !== "-" && type !== "+") {
@@ -30,6 +26,9 @@ export default class Count_Types extends Vue {
 
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
+.typesWrapper{
+  flex-grow: 1;
+}
 .types {
   margin-top: 0;
   background: $color-highlight;
