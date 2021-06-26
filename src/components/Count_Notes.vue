@@ -27,6 +27,7 @@ export default class Count_Notes extends Vue {
   align-items: center;
   .name {
     padding-right: 16px;
+    white-space: nowrap;
     .icon {
       font-size: 16px;
     }
