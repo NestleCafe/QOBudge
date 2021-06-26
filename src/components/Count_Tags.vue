@@ -1,25 +1,36 @@
 <template>
-  <div>
-    <div class="tags">
-      <ul class="currentTags" :class="classPrefix && `${classPrefix}-currentTags`">
-        <li>衣</li>
-        <li>食</li>
-        <li>住</li>
-        <li>行</li>
-      </ul>
-    </div>
-
-    <div class="newTag">
-      <button>新增标签</button>
-    </div>
+  <div class="tags">
+    <ul class="currentTags">
+      <li
+        v-for="tag in dataSource"
+        :key="tag"
+        @click="toggle(tag)"
+        :class="{ selected: selectedTag.indexOf(tag) >= 0 }"
+      >
+        {{ tag }}
+      </li>
+    </ul>
   </div>
 </template>
 
 <script lang="ts">
-export default {
-  name: "Count_Tags",
-  props:['classPrefix'],
-};
+import Vue from "vue";
+import { Component, Prop } from "vue-property-decorator";
+
+@Component
+export default class Count_Tags extends Vue {
+  @Prop() dataSource: string[] | undefined;
+  selectedTag: string[] = [];
+  
+  toggle(tag: string) {
+    const index = this.selectedTag.indexOf(tag);
+    if (index >= 0) {
+      this.selectedTag.splice(index, 1);
+    } else {
+      this.selectedTag.push(tag);
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -35,25 +46,17 @@ export default {
     flex-wrap: wrap;
     overflow: auto;
     > li {
-      background: #F5F5F5;
+      background: #f5f5f5;
       $height: 24px;
       line-height: $height;
       padding: 0 16px;
       border-radius: $height/2;
       margin-right: 14px;
       margin-top: 4px;
+      &.selected {
+        background: darken($color-highlight, 10%);
+      }
     }
-  }
-}
-.newTag {
-  font-size: 14px;
-  padding: 16px;
-  button {
-    background: transparent;
-    border: none;
-    border-bottom: 2px solid #999;
-    color: #999;
-    padding: 0 4px;
   }
 }
 </style>
