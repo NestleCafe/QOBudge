@@ -2,7 +2,7 @@
   <layout class-prefix="layout">
     <number-pad />
     <notes />
-    <new-tag />
+    <new-tag :data-source.sync="tags"/>
     <tags :data-source="tags" />
     <types />
   </layout>

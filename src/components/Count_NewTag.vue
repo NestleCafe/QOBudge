@@ -1,11 +1,26 @@
 <template>
-    <div class="newTag">
-      <button>新增标签</button>
-    </div>
+  <div class="newTag">
+    <button @click="createTag">新增标签</button>
+  </div>
 </template>
 
 <script lang="ts">
+import Vue from "vue";
+import { Component, Prop } from "vue-property-decorator";
 
+@Component
+export default class Count_NewTag extends Vue {
+  @Prop(String) readonly dataSource: string[] | undefined;
+
+  createTag() {
+    const tagName = window.prompt("请输入新标签名");
+    if (tagName === "") {
+      window.alert("标签名不能为空！");
+    } else if (this.dataSource) {
+      this.$emit("update:dataSource", [...this.dataSource, tagName]);
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
