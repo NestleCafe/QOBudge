@@ -35,7 +35,7 @@ import { Component, Prop } from "vue-property-decorator";
 
 @Component
 export default class Count_NumberPad extends Vue {
-  @Prop(Number) readonly value!: number;
+  @Prop() readonly value!: number;
   output = this.value.toString();
 
   counting = 0;
@@ -91,10 +91,12 @@ export default class Count_NumberPad extends Vue {
   add() {
     this.counting += parseFloat(this.output);
     this.countingType = "+";
+    this.output = "0";
   }
   subtract() {
     this.counting += parseFloat(this.output);
     this.countingType = "-";
+    this.output = "0";
   }
   equal() {
     if (this.countingType === "+") {
