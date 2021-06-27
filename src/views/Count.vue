@@ -1,6 +1,6 @@
 <template>
   <layout class-prefix="layout">
-    <number-pad :value.sync="record.amount"/>
+    <number-pad :value.sync="record.amount" @submit="saveRecord"/>
     <notes @update:value="onUpdateNotes"/>
     <new-tag :data-source.sync="tags"/>
     <tags :data-source="tags" @update:value="onUpdatetTags" />
@@ -19,7 +19,7 @@ import Notes from "@/components/Count_Notes.vue";
 import Tags from "@/components/Count_Tags.vue";
 import NewTag from '@/components/Count_NewTag.vue';
 
-import { Component } from 'vue-property-decorator';
+import { Component, Watch } from 'vue-property-decorator';
 
 type Record = {
   tags: string[],
@@ -33,7 +33,7 @@ type Record = {
 })
 export default class Count extends Vue{
   tags = ['衣', '食', '住', '行', '医疗'];
-
+  recordList: Record[] = [];
   record: Record = {
     tags:[],
     notes: '',
@@ -48,6 +48,15 @@ export default class Count extends Vue{
     this.record.notes = value;
   }
 
+  saveRecord(){
+    const deepCloneRecord = JSON.parse(JSON.stringify(this.record))
+    this.recordList.push(deepCloneRecord);
+    console.log(this.recordList);
+  }
+  @Watch('recordList')
+  onRecordListChange(){
+    window.localStorage.setItem('recordList', JSON.stringify(this.record));
+  }
 }
 
 </script>

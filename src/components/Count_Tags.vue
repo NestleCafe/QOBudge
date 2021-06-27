@@ -19,7 +19,7 @@ import { Component, Prop } from "vue-property-decorator";
 
 @Component
 export default class Count_Tags extends Vue {
-  @Prop(String) dataSource: string[] | undefined;
+  @Prop(Array) dataSource: string[] | undefined;
   selectedTags: string[] = [];
   
   toggle(tag: string) {
