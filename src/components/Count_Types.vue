@@ -1,8 +1,8 @@
 <template>
 
     <ul class="types">
-      <li :class="type === '-' && 'selected'" @click="selectType('-')">支出</li>
-      <li :class="type === '+' && 'selected'" @click="selectType('+')">收入</li>
+      <li :class="value === '-' && 'selected'" @click="selectType('-')">支出</li>
+      <li :class="value === '+' && 'selected'" @click="selectType('+')">收入</li>
     </ul>
 
 </template>
@@ -13,13 +13,13 @@ import { Component, Prop } from "vue-property-decorator";
 
 @Component
 export default class Count_Types extends Vue {
-  type = "-"; // '-'表示支出， '+'表示收入
+  @Prop(String) readonly value!: string; // '-'表示支出， '+'表示收入
   selectType(type:string) {
     //type只能是'-' 和 '+'
     if (type !== "-" && type !== "+") {
       throw new Error("type is unknown");
     }
-    this.type = type;
+    this.$emit('update:value', type)
   }
 }
 </script>

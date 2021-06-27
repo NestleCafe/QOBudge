@@ -10,11 +10,16 @@
 
 <script lang="ts">
 import Vue from "vue";
-import {Component} from "vue-property-decorator";
+import {Component, Watch} from "vue-property-decorator";
 
 @Component
 export default class Count_Notes extends Vue {
   value = '';
+
+  @Watch('value')
+  onValueChanged(value: string, oldValue: string){
+    this.$emit('update:value', value)
+  }
 }
 </script>
 
@@ -41,4 +46,5 @@ export default class Count_Notes extends Vue {
     padding-right: 16px;
   }
 }
+
 </style>

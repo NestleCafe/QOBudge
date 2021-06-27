@@ -9,26 +9,30 @@
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
-      <button class="plus">+</button>
+      <button @click="add()">+</button>
       <button @click="inputContent">7</button>
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
-      <button class="mius">-</button>
-      <button @click="inputContent" class="zero">0</button>
+      <button @click="subtract()">-</button>
       <button @click="inputContent" class="dot">.</button>
-      <button class="equal">=</button>
-      <button class="ok">完成</button>
+      <button @click="inputContent">0</button>
+      <button @click="equal()">=</button>
+      <button class="ok" @click="ok">完成</button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import { Component, Prop } from "vue-property-decorator";
 
 @Component
 export default class Count_NumberPad extends Vue {
-  output = "0";
+  @Prop(Number) readonly value!: number;
+  output = this.value.toString();
+
+  counting = 0;
+  countingType: string | undefined;
 
   inputContent(event: MouseEvent): void {
     const button = event.target as HTMLButtonElement;
@@ -46,23 +50,51 @@ export default class Count_NumberPad extends Vue {
       } else {
         this.output += input;
       }
+      return;
     }
     if (this.output.indexOf(".") >= 0 && input === ".") {
       return;
     } //防止出现'..'的情况
     this.output += input;
   }
-  remove(): void{
-    if(this.output.length !== 1){
-    this.output = this.output.substring(0, this.output.length-1)
-    }else{
-      this.output = '0';
+  remove() {
+    if (this.output.length !== 1) {
+      this.output = this.output.substring(0, this.output.length - 1);
+    } else {
+      this.output = "0";
     }
   }
-  clear(){
-    this.output = '0';
+  clear() {
+    this.output = "0";
   }
-  /* ok(): void{} */
+  ok() {
+    this.equal()
+    this.$emit("update:value", this.output);
+    this.output = "0";
+    window.alert("增加成功！");
+  }
+  add() {
+    this.counting += parseFloat(this.output);
+    this.countingType = "+";
+    this.output = "0";
+ 
+  }
+  subtract() {
+    this.counting += parseFloat(this.output);
+    this.countingType = "-";
+    this.output = "0";
+
+  }
+  equal() {
+    if (this.countingType === "+") {
+      this.counting += parseFloat(this.output);
+    }else if(this.countingType === "-") {
+      this.counting -= parseFloat(this.output);
+    }else{return;}
+    this.output = this.counting.toString()
+    this.countingType = undefined;
+    this.counting = 0;
+  }
 }
 </script>
 
@@ -96,8 +128,7 @@ export default class Count_NumberPad extends Vue {
         float: right;
         background: $color-highlight;
       }
-      &.zero {
-      }
+
       &.dot {
         font-weight: bold;
       }

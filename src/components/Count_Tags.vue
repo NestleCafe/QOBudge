@@ -1,7 +1,7 @@
 <template>
   <div class="tags">
     <ul class="currentTags">
-      <li
+      <li 
         v-for="tag in dataSource"
         :key="tag"
         @click="toggle(tag)"
@@ -29,6 +29,7 @@ export default class Count_Tags extends Vue {
     } else {
       this.selectedTags.push(tag);
     }
+    this.$emit('update:value', this.selectedTags)
   }
 }
 </script>
