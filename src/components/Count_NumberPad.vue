@@ -1,6 +1,13 @@
 <template>
   <div class="numberPad">
-    <div class="output">{{ output }}</div>
+    <div class="output">
+      <span class="dollar">¥
+        <span v-if="output!=='0'" class="clear" @click="clear()">清空
+          </span>
+          </span>
+
+      {{ output }}
+    </div>
     <div class="buttons">
       <button @click="inputContent">1</button>
       <button @click="inputContent">2</button>
@@ -37,9 +44,16 @@ export default class Count_NumberPad extends Vue {
   inputContent(event: MouseEvent): void {
     const button = event.target as HTMLButtonElement;
     const input = button.textContent!;
-    if (this.output.length === 16) {
+    if (this.output.length === 12) {
       return;
     }
+    if (this.output.indexOf(".") >= 0) {
+      const index = this.output.indexOf(".");
+      if (this.output[index + 2]) {
+        return; //最多两位小数！
+      }
+    }
+
     if (this.output === "0") {
       if (input === "0") {
         return;
@@ -68,7 +82,7 @@ export default class Count_NumberPad extends Vue {
     this.output = "0";
   }
   ok() {
-    this.equal()
+    this.equal();
     this.$emit("update:value", this.output);
     this.output = "0";
     window.alert("增加成功！");
@@ -76,22 +90,20 @@ export default class Count_NumberPad extends Vue {
   add() {
     this.counting += parseFloat(this.output);
     this.countingType = "+";
-    this.output = "0";
- 
   }
   subtract() {
     this.counting += parseFloat(this.output);
     this.countingType = "-";
-    this.output = "0";
-
   }
   equal() {
     if (this.countingType === "+") {
       this.counting += parseFloat(this.output);
-    }else if(this.countingType === "-") {
+    } else if (this.countingType === "-") {
       this.counting -= parseFloat(this.output);
-    }else{return;}
-    this.output = this.counting.toString()
+    } else {
+      return;
+    }
+    this.output = this.counting.toString();
     this.countingType = undefined;
     this.counting = 0;
   }
@@ -109,6 +121,26 @@ export default class Count_NumberPad extends Vue {
     padding: 9px 16px;
     text-align: right;
     height: 72px;
+    position: relative;
+    .dollar {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      left: 16px;
+      .clear {
+        position: absolute;
+        font-size: 14px;
+        padding: 2px;
+        left: 20px;
+        border: 1px solid #757575;
+        white-space: nowrap;
+        font-family: $font-hei;
+        color: #757575;
+        opacity: 0.5;
+        margin-left: 4px;
+        font-weight: 500;
+      }
+    }
   }
   .buttons {
     @extend %clearFix;
