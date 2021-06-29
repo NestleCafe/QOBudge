@@ -1,7 +1,7 @@
 <template>
   <layout class-prefix="layout">
     <number-pad :value.sync="record.amount" @submit="saveRecord" />
-    <notes fieldName="备注" @update:value="onUpdateNotes" />
+    <form-item fieldName="备注" @update:value="onUpdateNotes" />
     <new-tag :data-source.sync="tags" />
     <tags :data-source="tags" @update:value="onUpdatetTags" />
     {{ recordList }}
@@ -15,27 +15,27 @@ import Vue from "vue";
 import Layout from "@/components/Layout.vue";
 import NumberPad from "@/components/Count_NumberPad.vue";
 import Types from "@/components/Count_Types.vue";
-import Notes from "@/components/Count_Notes.vue";
+import FormItem from "@/components/FormItem.vue";
 import Tags from "@/components/Count_Tags.vue";
 import NewTag from "@/components/Count_NewTag.vue";
 
 import { Component, Watch } from "vue-property-decorator";
-import {recordListModel} from "@/models/recordList"
-import {tagListModel} from "@/models/tagListModel"
+import { recordListModel } from "@/models/recordList";
+import { tagListModel } from "@/models/tagListModel";
 
 const recordList = recordListModel.fetch();
-const tagList = tagListModel.fetch()
+const tagList = tagListModel.fetch();
 
 type RecordItem = {
-    tags: string[];
-    notes: string;
-    type: string;
-    amount: number;
-    createdAt?: Date;
-  };
+  tags: string[];
+  notes: string;
+  type: string;
+  amount: number;
+  createdAt?: Date;
+};
 
 @Component({
-  components: { Layout, NumberPad, Types, Notes, Tags, NewTag },
+  components: { Layout, NumberPad, Types, FormItem, Tags, NewTag },
 })
 export default class Count extends Vue {
   tags = tagList;
@@ -71,7 +71,6 @@ export default class Count extends Vue {
   display: flex;
   flex-direction: column-reverse;
   position: relative;
-  background: white;
 }
 </style>
 

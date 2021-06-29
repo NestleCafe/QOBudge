@@ -27,9 +27,10 @@ export default class Count_NewTag extends Vue {
 .newTag {
   font-size: 14px;
   padding: 16px;
+  background: white;
   button {
-    background: transparent;
     border: none;
+    background: white;
     border-bottom: 2px solid #999;
     color: #999;
     padding: 0 4px;

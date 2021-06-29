@@ -1,9 +1,16 @@
 <template>
   <layout>
-    <div></div>
-    <icon name="pre" />
-    <span>编辑标签</span>
-    <notes fieldName="标签名" />
+    <div class="navBar">
+      <icon name="pre" />
+      <span class="title">编辑标签</span>
+      <span class="right"></span>
+    </div>
+    <div class="formWrapper">
+      <form-item fieldName="标签名" />
+    </div>
+    <div class="buttonWrapper">
+    <d-button>删除标签</d-button>
+    </div>
   </layout>
 </template>
 
@@ -11,10 +18,10 @@
 import { tagListModel } from "@/models/tagListModel";
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
-import Notes from "@/components/Count_Notes.vue";
-
+import FormItem from "@/components/FormItem.vue";
+import DButton from "@/components/DButton.vue";
 @Component({
-  components:{ Notes },
+  components: { FormItem, DButton },
 })
 export default class EditLabel extends Vue {
   created() {
@@ -23,8 +30,8 @@ export default class EditLabel extends Vue {
     const tags = tagListModel.data;
     const tag = tags.filter((t) => t.id === id)[0]; //filter返回的是数组
     if (tag) {
-      console.log(tag)
-    }else{
+      console.log(tag);
+    } else {
       this.$router.replace("/404");
     }
   }
@@ -32,4 +39,32 @@ export default class EditLabel extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.navBar {
+  text-align: center;
+  display: flex;
+  font-size: 16px;
+  padding: 12px 16px;
+  background: white;
+  align-items: center;
+  justify-content: space-between;
+  .title {
+  }
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
+  .right {
+    width: 24px;
+    height: 24px;
+  }
+}
+.formWrapper{
+  background: white;
+  margin-top: 8px;
+}
+.buttonWrapper{
+  text-align: center;
+  padding: 16px;
+  margin-top: 44-16px ;
+}
 </style>

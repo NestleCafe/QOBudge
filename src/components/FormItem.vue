@@ -13,7 +13,7 @@ import Vue from "vue";
 import {Component, Prop, Watch} from "vue-property-decorator";
 
 @Component
-export default class Count_Notes extends Vue {
+export default class FormItem extends Vue {
   value = '';
 
   @Prop({required:true}) fieldName!: string;
@@ -29,7 +29,6 @@ export default class Count_Notes extends Vue {
 .notes {
   overflow-x: hidden;
   font-size: 14px;
-  background: #f5f5f5;
   padding-left: 16px;
   display: flex;
   align-items: center;
@@ -41,7 +40,7 @@ export default class Count_Notes extends Vue {
     }
   }
   input {
-    height: 2.5em;
+    height: 44px;
     flex-grow: 1;
     background: transparent;
     border: none;
