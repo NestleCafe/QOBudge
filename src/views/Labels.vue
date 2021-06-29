@@ -1,12 +1,15 @@
 <template>
   <div>
     <layout>
-      <ol class="tags">
-        <li v-for="tag in tags" :key="tag.id">
+      <div class="tags">
+        <router-link  class="tag"
+          v-for="tag in tags" :key="tag.id"
+          :to="`/labels/edit/${tag.id}`"
+        >
           <span>{{ tag.name }}</span>
           <icon name="next" />
-        </li>
-      </ol>
+        </router-link>
+      </div>
       <div class="createTagWrapper">
         <button @click="createTag" class="createTag">新增标签</button>
       </div>
@@ -34,12 +37,12 @@ export default class Lables extends Vue {
       window.alert("标签名不能为空！");
       return;
     } else if (name) {
-        const message = tagListModel.create(name);
-        if(message === 'duplicated'){
-            window.alert('标签名重复！')
-        }else if(message === 'success'){
-            window.alert('添加成功')
-        }
+      const message = tagListModel.create(name);
+      if (message === "duplicated") {
+        window.alert("标签名重复！");
+      } else if (message === "success") {
+        window.alert("添加成功");
+      }
     }
   }
 }
@@ -50,8 +53,8 @@ export default class Lables extends Vue {
 .tags {
   background: white;
   padding-left: 16px;
-  font-size: 16px;
-  > li {
+  > .tag {
+    font-size: 16px;
     min-height: 44px;
     display: flex;
     align-items: center;

@@ -18,7 +18,7 @@ export default class EditLabel extends Vue {
     const tag = tags.filter((t) => t.id === id)[0]; //filter返回的是数组
     if (tag) {
       console.log(tag);
-    } else {
+    }else{
       this.$router.replace("/404");
     }
   }
