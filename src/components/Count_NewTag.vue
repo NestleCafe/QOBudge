@@ -10,7 +10,7 @@ import { Component, Prop } from "vue-property-decorator";
 
 @Component
 export default class Count_NewTag extends Vue {
-  @Prop(String) readonly dataSource: string[] | undefined;
+  @Prop() readonly dataSource: string[] | undefined;
 
   createTag() {
     const tagName = window.prompt("请输入新标签名");

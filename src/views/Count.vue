@@ -20,38 +20,25 @@ import Tags from "@/components/Count_Tags.vue";
 import NewTag from "@/components/Count_NewTag.vue";
 
 import { Component, Watch } from "vue-property-decorator";
-const recordList: Record[] = JSON.parse(
-  window.localStorage.getItem("recordList") || "[]"
-);
+import {model} from "@/model"
 
-/* const version = window.localStorage.getItem("DateVersion") || "0";
+const recordList = model.fetch();
 
-//做数据迁移 数据库升级
-if (version === "0.0.1") {
-  recordList.forEach((record) => {
-    record.createdAt = new Date(2021, 1, 1);
-  });//保存数据
-  window.localStorage.setItem("recordList", JSON.stringify(recordList));
-}
-window.localStorage.setItem("DateVersion", "0.0.2"); */
-
-type Record = {
-  tags: string[];
-  notes: string;
-  type: string;
-  amount: number;
-  createdAt?: Date;
-};
+type RecordItem = {
+    tags: string[];
+    notes: string;
+    type: string;
+    amount: number;
+    createdAt?: Date;
+  };
 
 @Component({
   components: { Layout, NumberPad, Types, Notes, Tags, NewTag },
 })
 export default class Count extends Vue {
   tags = ["衣", "食", "住", "行", "医疗"];
-  recordList: Record[] = JSON.parse(
-    window.localStorage.getItem("recordList") || "[]"
-  );
-  record: Record = {
+  recordList: RecordItem[] = recordList;
+  record: RecordItem = {
     tags: [],
     notes: "",
     type: "-",
@@ -66,13 +53,13 @@ export default class Count extends Vue {
   }
 
   saveRecord() {
-    const deepCloneRecord: Record = JSON.parse(JSON.stringify(this.record));
+    const deepCloneRecord: RecordItem = model.deepClone(this.record);
     deepCloneRecord.createdAt = new Date();
     this.recordList.push(deepCloneRecord);
   }
   @Watch("recordList")
   onRecordListChange() {
-    window.localStorage.setItem("recordList", JSON.stringify(this.record));
+    model.save(this.recordList);
   }
 }
 </script>
