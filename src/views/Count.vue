@@ -1,7 +1,9 @@
 <template>
   <layout class-prefix="layout">
     <number-pad :value.sync="record.amount" @submit="saveRecord" />
-    <form-item fieldName="备注" @update:value="onUpdateNotes" />
+    <form-item 
+      fieldName="备注" 
+      @update:value="onUpdateNotes" />
     <new-tag :data-source.sync="tags" />
     <tags :data-source="tags" @update:value="onUpdatetTags" />
     {{ record }}
