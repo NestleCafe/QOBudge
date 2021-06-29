@@ -20,9 +20,11 @@ import Tags from "@/components/Count_Tags.vue";
 import NewTag from "@/components/Count_NewTag.vue";
 
 import { Component, Watch } from "vue-property-decorator";
-import {model} from "@/model"
+import {recordListModel} from "@/models/recordList"
+import {tagListModel} from "@/models/tagListModel"
 
-const recordList = model.fetch();
+const recordList = recordListModel.fetch();
+const tagList = tagListModel.fetch()
 
 type RecordItem = {
     tags: string[];
@@ -36,7 +38,7 @@ type RecordItem = {
   components: { Layout, NumberPad, Types, Notes, Tags, NewTag },
 })
 export default class Count extends Vue {
-  tags = ["衣", "食", "住", "行", "医疗"];
+  tags = tagList;
   recordList: RecordItem[] = recordList;
   record: RecordItem = {
     tags: [],
@@ -53,13 +55,13 @@ export default class Count extends Vue {
   }
 
   saveRecord() {
-    const deepCloneRecord: RecordItem = model.deepClone(this.record);
+    const deepCloneRecord: RecordItem = recordListModel.deepClone(this.record);
     deepCloneRecord.createdAt = new Date();
     this.recordList.push(deepCloneRecord);
   }
   @Watch("recordList")
   onRecordListChange() {
-    model.save(this.recordList);
+    recordListModel.save(this.recordList);
   }
 }
 </script>
@@ -69,6 +71,7 @@ export default class Count extends Vue {
   display: flex;
   flex-direction: column-reverse;
   position: relative;
+  background: white;
 }
 </style>
 
