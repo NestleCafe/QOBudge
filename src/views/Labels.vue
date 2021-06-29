@@ -71,7 +71,8 @@ export default class Lables extends Vue {
   text-align: center;
   margin-top: 44-16px;
   .createTag {
-    background: #cae705;
+    /* background: #2B82D8; */
+    background: $color-highlight;
     border-radius: 4px;
     border: none;
     height: 40px;
