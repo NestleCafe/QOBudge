@@ -1,6 +1,9 @@
 <template>
   <layout>
-    <div>编辑标签</div>
+    <div></div>
+    <icon name="pre" />
+    <span>编辑标签</span>
+    <notes fieldName="标签名" />
   </layout>
 </template>
 
@@ -8,8 +11,11 @@
 import { tagListModel } from "@/models/tagListModel";
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
+import Notes from "@/components/Count_Notes.vue";
 
-@Component
+@Component({
+  components:{ Notes },
+})
 export default class EditLabel extends Vue {
   created() {
     const id = this.$route.params.id;
@@ -17,7 +23,7 @@ export default class EditLabel extends Vue {
     const tags = tagListModel.data;
     const tag = tags.filter((t) => t.id === id)[0]; //filter返回的是数组
     if (tag) {
-      console.log(tag);
+      console.log(tag)
     }else{
       this.$router.replace("/404");
     }

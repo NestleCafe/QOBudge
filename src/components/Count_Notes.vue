@@ -1,20 +1,22 @@
 <template>
   <div>
     <label class="notes">
-      <span class="name"> <icon name="notes" class="icon" />备注 </span>
+      <span class="name"> <icon name="notes" class="icon" />{{this.fieldName}} </span>
       <input type="text" v-model="value"
-      placeholder="在这里添加备注" />
+      :placeholder="'在这里添加'+this.fieldName" />
     </label>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import {Component, Watch} from "vue-property-decorator";
+import {Component, Prop, Watch} from "vue-property-decorator";
 
 @Component
 export default class Count_Notes extends Vue {
   value = '';
+
+  @Prop({required:true}) fieldName!: string;
 
   @Watch('value')
   onValueChanged(value: string, oldValue: string){
