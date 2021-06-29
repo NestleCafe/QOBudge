@@ -4,7 +4,7 @@
     <form-item fieldName="备注" @update:value="onUpdateNotes" />
     <new-tag :data-source.sync="tags" />
     <tags :data-source="tags" @update:value="onUpdatetTags" />
-    {{ recordList }}
+    {{ record }}
     <types :value.sync="record.type" />
   </layout>
 </template>

@@ -1,9 +1,12 @@
 <template>
   <div>
-    <label class="notes">
-      <span class="name"> <icon name="notes" class="icon" />{{this.fieldName}} </span>
-      <input type="text" v-model="value"
-      :placeholder="'在这里添加'+this.fieldName" />
+    <label class="formItem">
+      <span class="name"> 
+        <icon name="notes" class="icon" />
+        {{this.fieldName}} 
+      </span>
+      <input type="text" :value="value" @input="onValueChanged($event.target.value)"
+      :placeholder="'在这里添加'+ fieldName" />
     </label>
   </div>
 </template>
@@ -14,10 +17,9 @@ import {Component, Prop, Watch} from "vue-property-decorator";
 
 @Component
 export default class FormItem extends Vue {
-  value = '';
 
-  @Prop({default: ''}) value!: string;
-  
+  @Prop({default: ''}) readonly value!: string;
+
   @Prop({required:true}) fieldName!: string;
 
   @Watch('value')
@@ -28,7 +30,7 @@ export default class FormItem extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.notes {
+.formItem {
   overflow-x: hidden;
   font-size: 14px;
   padding-left: 16px;
