@@ -1,7 +1,7 @@
 <template>
   <layout>
     <div class="navBar">
-      <icon name="pre" @click="goback"/>
+      <icon name="pre" @click.native="goback"/>
       <span class="title">编辑标签</span>
       <span class="right"></span>
     </div>
@@ -47,7 +47,10 @@ export default class EditLabel extends Vue {
   }
   remove(){
     if(this.tag){
-      tagListModel.remove(this.tag.id);
+      if(tagListModel.remove(this.tag.id)){
+        window.alert("删除成功！")
+        this.$router.push('/labels');
+      }
     }
   }
   goback(){
