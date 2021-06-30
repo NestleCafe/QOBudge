@@ -1,16 +1,17 @@
 <template>
   <layout>
     <div class="navBar">
-      <icon name="pre" />
+      <icon name="pre" @click="goback"/>
       <span class="title">编辑标签</span>
       <span class="right"></span>
     </div>
     <div class="formWrapper">
       <form-item fieldName="标签名"
+      @update:value="update"
       :value="tag.name" />
     </div>
     <div class="buttonWrapper">
-    <d-button>删除标签</d-button>
+    <d-button @click.native="remove">删除标签</d-button>
     </div>
   </layout>
 </template>
@@ -25,8 +26,8 @@ import DButton from "@/components/DButton.vue";
   components: { FormItem, DButton },
 })
 export default class EditLabel extends Vue {
-  tag?:{id: string, name: string} = undefined;
-  
+  tag:{id: string, name: string} = undefined!;
+
   created() {
     const id = this.$route.params.id;
     tagListModel.fetch();
@@ -37,6 +38,20 @@ export default class EditLabel extends Vue {
     } else {
       this.$router.replace("/404");
     }
+  }
+
+  update(name: string){
+    if(this.tag){
+      tagListModel.update(this.tag.id, name);
+    }
+  }
+  remove(){
+    if(this.tag){
+      tagListModel.remove(this.tag.id);
+    }
+  }
+  goback(){
+    this.$router.push('/labels');
   }
 }
 </script>
