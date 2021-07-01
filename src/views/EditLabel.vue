@@ -8,7 +8,7 @@
     <div class="formWrapper">
       <form-item fieldName="标签名"
       @update:value="update"
-      :value="tag.name" />
+      :value="tag && tag.name" />
     </div>
     <div class="buttonWrapper">
     <d-button @click.native="remove">删除标签</d-button>
