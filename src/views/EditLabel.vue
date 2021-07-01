@@ -17,7 +17,6 @@
 </template>
 
 <script lang="ts">
-import { tagListModel } from "@/models/tagListModel";
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import FormItem from "@/components/FormItem.vue";
@@ -26,30 +25,26 @@ import DButton from "@/components/DButton.vue";
   components: { FormItem, DButton },
 })
 export default class EditLabel extends Vue {
-  tag:{id: string, name: string} = undefined!;
-
+  tag?: Tag = undefined;
   created() {
-    const id = this.$route.params.id;
-    tagListModel.fetch();
-    const tags = tagListModel.data;
-    const tag = tags.filter((t) => t.id === id)[0]; //filter返回的是数组
-    if (tag) {
-      this.tag = tag;
-    } else {
+    this.tag = window.findTag(this.$route.params.id);
+    if(!this.tag) {
       this.$router.replace("/404");
     }
   }
 
   update(name: string){
     if(this.tag){
-      tagListModel.update(this.tag.id, name);
+      window.updateTag(this.tag.id, name);
     }
   }
   remove(){
     if(this.tag){
-      if(tagListModel.remove(this.tag.id)){
+      if(window.removeTag(this.tag.id)){
         window.alert("删除成功！")
         this.$router.push('/labels');
+      }else{
+        window.alert("删除失败！")
       }
     }
   }
@@ -68,8 +63,6 @@ export default class EditLabel extends Vue {
   background: white;
   align-items: center;
   justify-content: space-between;
-  .title {
-  }
   .icon {
     width: 24px;
     height: 24px;
