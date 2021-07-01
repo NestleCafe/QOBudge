@@ -1,14 +1,16 @@
 <template>
-    <button class="button">
+    <button class="button" :class=" classPrefix && `${classPrefix}-button`">
         <slot/>
     </button>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import {Component} from "vue-property-decorator";
+import {Component, Prop} from "vue-property-decorator";
 @Component
 export default class DButton extends Vue{
+
+@Prop(String) readonly classPrefix: string | undefined;
 
 }
 </script>

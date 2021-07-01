@@ -1,18 +1,24 @@
 <template>
   <div>
     <layout>
-      <div class="tags">
-        <router-link  class="tag"
-          v-for="tag in tags" :key="tag.id"
-          :to="`/labels/edit/${tag.id}`"
-        >
-          <span>{{ tag.name }}</span>
-          <icon name="next" />
-        </router-link>
-      </div>
-      <div class="createTagWrapper">
-        <d-button @click.native="createTag">新增标签</d-button>
-      </div>
+
+        <div class="tags">
+          <router-link
+            class="tag"
+            v-for="tag in tags"
+            :key="tag.id"
+            :to="`/labels/edit/${tag.id}`"
+          >
+            <span>{{ tag.name }}</span>
+            <icon name="next" />
+          </router-link>
+        </div>
+        <div class="createTagWrapper">
+            <d-button @click.native="createTag" class-prefix="DB">
+              <icon name="addButton" />
+            </d-button>
+        </div>
+
     </layout>
   </div>
 </template>
@@ -24,7 +30,6 @@ import Layout from "@/components/Layout.vue";
 import DButton from "@/components/DButton.vue";
 import { Component } from "vue-property-decorator";
 import { tagListModel } from "@/models/tagListModel";
-
 
 @Component({
   components: { Layout, DButton },
@@ -49,6 +54,7 @@ export default class Lables extends Vue {
 }
 </script>
 
+
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
 .tags {
@@ -70,9 +76,32 @@ export default class Lables extends Vue {
     }
   }
 }
-.createTagWrapper {
+/* .createTagWrapper {
   padding: 16px;
   text-align: center;
   margin-top: 44-16px;
+} */
+
+.createTagWrapper {
+  position: fixed;
+  padding: 16px;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 44px;
+  .DB-button{
+    border-radius: 50%;
+    padding: 0;
+    height: 64px;
+    width: 64px;
+    position: relative;
+    .icon{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  } 
 }
+
 </style>
