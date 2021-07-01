@@ -25,7 +25,7 @@ import Tags from "@/components/Count_Tags.vue";
 import NewTag from "@/components/Count_NewTag.vue";
 
 import { Component, Watch } from "vue-property-decorator";
-import { recordListModel } from "@/models/recordList";
+import { recordListModel } from "@/models/recordListModel";
 import { tagListModel } from "@/models/tagListModel";
 
 const recordList = recordListModel.fetch();
@@ -60,9 +60,7 @@ export default class Count extends Vue {
   }
 
   saveRecord() {
-    const deepCloneRecord: RecordItem = recordListModel.deepClone(this.record);
-    deepCloneRecord.createdAt = new Date();
-    this.recordList.push(deepCloneRecord);
+    recordListModel.create(this.record)
   }
   @Watch("recordList")
   onRecordListChange() {
