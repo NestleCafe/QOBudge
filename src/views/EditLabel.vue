@@ -21,13 +21,14 @@ import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import FormItem from "@/components/FormItem.vue";
 import DButton from "@/components/DButton.vue";
+import store from "@/store/CustomedIndex";
 @Component({
   components: { FormItem, DButton },
 })
 export default class EditLabel extends Vue {
   tag?: Tag = undefined;
   created() {
-    this.tag = window.findTag(this.$route.params.id);
+    this.tag = store.findTag(this.$route.params.id);
     if(!this.tag) {
       this.$router.replace("/404");
     }
@@ -35,12 +36,12 @@ export default class EditLabel extends Vue {
 
   update(name: string){
     if(this.tag){
-      window.updateTag(this.tag.id, name);
+      store.updateTag(this.tag.id, name);
     }
   }
   remove(){
     if(this.tag){
-      if(window.removeTag(this.tag.id)){
+      if(store.removeTag(this.tag.id)){
         window.alert("删除成功！")
         this.$router.push('/labels');
       }else{

@@ -1,26 +1,22 @@
 <template>
-  <div>
-    <layout>
-
-        <div class="tags">
-          <router-link
-            class="tag"
-            v-for="tag in tags"
-            :key="tag.id"
-            :to="`/labels/edit/${tag.id}`"
-          >
-            <span>{{ tag.name }}</span>
-            <icon name="next" />
-          </router-link>
-        </div>
-        <div class="createTagWrapper">
-            <d-button @click.native="createTag" class-prefix="DB">
-              <icon name="addButton" />
-            </d-button>
-        </div>
-
-    </layout>
-  </div>
+  <layout>
+    <div class="tags">
+      <router-link
+        class="tag"
+        v-for="tag in tags"
+        :key="tag.id"
+        :to="`/labels/edit/${tag.id}`"
+      >
+        <span>{{ tag.name }}</span>
+        <icon name="next" />
+      </router-link>
+    </div>
+    <div class="createTagWrapper">
+      <d-button @click.native="createTag" class-prefix="DB">
+        <icon name="addButton" />
+      </d-button>
+    </div>
+  </layout>
 </template>
 
 <script lang="ts">
@@ -29,17 +25,18 @@ import Vue from "vue";
 import Layout from "@/components/Layout.vue";
 import DButton from "@/components/DButton.vue";
 import { Component } from "vue-property-decorator";
+import store from "@/store/CustomedIndex";
 
 @Component({
   components: { Layout, DButton },
 })
 export default class Lables extends Vue {
-  tags = window.tagList;
+  tags = store.tagList;
 
   createTag() {
     const name = window.prompt("请输入标签名");
     if (name) {
-      window.createTag(name);
+      store.createTag(name);
     }
   }
 }
@@ -80,19 +77,18 @@ export default class Lables extends Vue {
   left: 50%;
   transform: translateX(-50%);
   font-size: 44px;
-  .DB-button{
+  .DB-button {
     border-radius: 50%;
     padding: 0;
     height: 64px;
     width: 64px;
     position: relative;
-    .icon{
+    .icon {
       position: absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
     }
-  } 
+  }
 }
-
 </style>

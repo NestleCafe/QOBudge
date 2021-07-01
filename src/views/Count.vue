@@ -25,7 +25,7 @@ import Tags from "@/components/Count_Tags.vue";
 import NewTag from "@/components/Count_NewTag.vue";
 
 import { Component } from "vue-property-decorator";
-
+import store from "@/store/CustomedIndex";
 
 
 
@@ -41,8 +41,8 @@ type RecordItem = {
   components: { Layout, NumberPad, Types, FormItem, Tags, NewTag },
 })
 export default class Count extends Vue {
-  tags = window.tagList;
-  recordList = window.recordList;
+  tags = store.tagList;
+  recordList = store.recordList;
   record: RecordItem = {
     tags: [],
     notes: "",
@@ -58,7 +58,7 @@ export default class Count extends Vue {
   }
 
   saveRecord() {
-    window.createRecord(this.record)
+    store.createRecord(this.record)
   }
 }
 </script>
