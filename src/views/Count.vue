@@ -24,11 +24,10 @@ import FormItem from "@/components/FormItem.vue";
 import Tags from "@/components/Count_Tags.vue";
 import NewTag from "@/components/Count_NewTag.vue";
 
-import { Component, Watch } from "vue-property-decorator";
-import { recordListModel } from "@/models/recordListModel";
-import { tagListModel } from "@/models/tagListModel";
+import { Component } from "vue-property-decorator";
 
-const recordList = recordListModel.fetch();
+
+
 
 type RecordItem = {
   tags: string[];
@@ -43,7 +42,7 @@ type RecordItem = {
 })
 export default class Count extends Vue {
   tags = window.tagList;
-  recordList: RecordItem[] = recordList;
+  recordList = window.recordList;
   record: RecordItem = {
     tags: [],
     notes: "",
@@ -59,11 +58,7 @@ export default class Count extends Vue {
   }
 
   saveRecord() {
-    recordListModel.create(this.record)
-  }
-  @Watch("recordList")
-  onRecordListChange() {
-    recordListModel.save();
+    window.createRecord(this.record)
   }
 }
 </script>
