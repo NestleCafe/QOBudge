@@ -5,10 +5,8 @@
       fieldName="备注" 
       @update:value="onUpdateNotes" 
     />
-    <new-tag :data-source.sync="tags" />
-    <tags :data-source="tags" 
-    @update:value="onUpdatetTags" 
-    />
+    <new-tag/>
+    <tags />
     {{ record }}
     <types :value.sync="record.type" />
   </layout>
@@ -41,7 +39,6 @@ type RecordItem = {
   components: { Layout, NumberPad, Types, FormItem, Tags, NewTag },
 })
 export default class Count extends Vue {
-  tags = store.tagList;
   recordList = store.recordList;
   record: RecordItem = {
     tags: [],
@@ -50,9 +47,6 @@ export default class Count extends Vue {
     amount: 0,
   };
 
-  onUpdatetTags(value: string[]) {
-    this.record.tags = value;
-  }
   onUpdateNotes(value: string) {
     this.record.notes = value;
   }

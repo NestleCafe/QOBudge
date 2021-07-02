@@ -5,20 +5,18 @@
 </template>
 
 <script lang="ts">
+import store from "@/store/CustomedIndex";
 import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 
 @Component
 export default class Count_NewTag extends Vue {
-  @Prop() readonly dataSource: string[] | undefined;
-
   createTag() {
     const tagName = window.prompt("请输入新标签名");
-    if (tagName === "") {
-      window.alert("标签名不能为空！");
-    } else if (this.dataSource) {
-      this.$emit("update:dataSource", [...this.dataSource, tagName]);
+    if (!tagName) {
+      return window.alert("标签名不能为空！");
     }
+    store.createTag(tagName);
   }
 }
 </script>

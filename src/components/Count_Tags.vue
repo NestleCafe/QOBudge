@@ -2,9 +2,9 @@
   <div class="tags">
     <ul class="currentTags">
       <li 
-        v-for="tag in dataSource" :key="tag.id"
-        @click="toggle(tag)"
-        :class="{selected: selectedTags.indexOf(tag) >= 0}">
+        v-for="tag in tagList" :key="tag.id"
+        @click="toggle(tag.id)"
+        :class="{selected: selectedTags.indexOf(tag.id) >= 0}">
         {{ tag.name }} 
       </li>
     </ul>
@@ -12,12 +12,13 @@
 </template>
 
 <script lang="ts">
+import store from "@/store/CustomedIndex";
 import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 
 @Component
 export default class Count_Tags extends Vue {
-  @Prop(Array) readonly dataSource: string[] | undefined;
+  tagList:Tag[] = store.fetchTags();
   selectedTags: string[] = [];
   
   toggle(tag: string) {
@@ -27,7 +28,6 @@ export default class Count_Tags extends Vue {
     } else {
       this.selectedTags.push(tag);
     }
-    this.$emit('update:value', this.selectedTags)
   }
 }
 </script>
