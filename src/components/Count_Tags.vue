@@ -18,7 +18,7 @@ import { Component } from "vue-property-decorator";
 
 @Component
 export default class Count_Tags extends Vue {
-  tagList:Tag[] = store.fetchTags();
+  tagList: Tag[] = store.fetchTags();
   selectedTags: string[] = [];
   
   toggle(tag: string) {

@@ -9,6 +9,7 @@
     <tags />
     {{ record }}
     <types :value.sync="record.type" />
+     {{count}}<button @click="add">+1</button>
   </layout>
 </template>
 
@@ -37,8 +38,18 @@ type RecordItem = {
 
 @Component({
   components: { Layout, NumberPad, Types, FormItem, Tags, NewTag },
+    computed:{
+    count(){
+      return store.count;
+    }
+  }
+
 })
 export default class Count extends Vue {
+  store = store;
+  add(){
+    return store.addCount();
+  }
   recordList = store.recordList;
   record: RecordItem = {
     tags: [],
