@@ -8,7 +8,7 @@
     <div class="formWrapper">
       <form-item fieldName="标签名"
       @update:value="update"
-      :value="tag && tag.name" />
+      :value="currentTag.name" />
     </div>
     <div class="buttonWrapper">
     <d-button @click.native="remove">删除标签</d-button>
@@ -21,32 +21,31 @@ import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import FormItem from "@/components/FormItem.vue";
 import DButton from "@/components/DButton.vue";
-import store from "@/store/CustomedIndex";
+
 @Component({
   components: { FormItem, DButton },
 })
 export default class EditLabel extends Vue {
-  tag?: Tag = undefined;
+  get currentTag(){
+    return this.$store.state.currentTag;
+  }
   created() {
-    this.tag = store.findTag(this.$route.params.id);
-    if(!this.tag) {
+    const id = this.$route.params.id;
+    this.$store.commit('fetchTags');
+    this.$store.commit('setCurrentTag', id);
+    if(!this.currentTag) {
       this.$router.replace("/404");
     }
   }
 
   update(name: string){
-    if(this.tag){
-      store.updateTag(this.tag.id, name);
+    if(this.currentTag){
+      this.$store.commit('updateTag',{id: this.currentTag.id, name});
     }
   }
   remove(){
-    if(this.tag){
-      if(store.removeTag(this.tag.id)){
-        window.alert("删除成功！")
-        this.$router.push('/labels');
-      }else{
-        window.alert("删除失败！")
-      }
+    if(this.currentTag){
+      this.$store.commit('removeTag', this.currentTag.id)
     }
   }
   goback(){

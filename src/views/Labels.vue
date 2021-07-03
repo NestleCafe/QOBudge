@@ -3,8 +3,7 @@
     <div class="tags">
       <router-link
         class="tag"
-        v-for="tag in tags"
-        :key="tag.id"
+        v-for="tag in tags" :key="tag.id"
         :to="`/labels/edit/${tag.id}`"
       >
         <span>{{ tag.name }}</span>
@@ -25,19 +24,18 @@ import Vue from "vue";
 import Layout from "@/components/Layout.vue";
 import DButton from "@/components/DButton.vue";
 import { Component } from "vue-property-decorator";
-import store from "@/store/CustomedIndex";
+import { mixins } from "vue-class-component"
+import { TagHelper } from '@/mixins/TagHelper'
 
 @Component({
   components: { Layout, DButton },
 })
-export default class Lables extends Vue {
-  tags = store.tagList;
-
-  createTag() {
-    const name = window.prompt("请输入标签名");
-    if (name) {
-      store.createTag(name);
-    }
+export default class Lables extends mixins(TagHelper) {
+  get tags(){
+    return this.$store.state.tagList;
+  }
+  created(){
+    this.$store.commit('fetchTags')
   }
 }
 </script>

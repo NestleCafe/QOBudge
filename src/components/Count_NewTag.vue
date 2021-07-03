@@ -5,19 +5,14 @@
 </template>
 
 <script lang="ts">
-import store from "@/store/CustomedIndex";
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
+import { mixins } from "vue-class-component"
+import { TagHelper } from '@/mixins/TagHelper'
 
 @Component
-export default class Count_NewTag extends Vue {
-  createTag() {
-    const tagName = window.prompt("请输入新标签名");
-    if (!tagName) {
-      return window.alert("标签名不能为空！");
-    }
-    store.createTag(tagName);
-  }
+export default class Count_NewTag extends mixins(TagHelper) {
+
 }
 </script>
 

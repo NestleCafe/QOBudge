@@ -23,8 +23,7 @@ import Tags from "@/components/Count_Tags.vue";
 import NewTag from "@/components/Count_NewTag.vue";
 
 import { Component } from "vue-property-decorator";
-import oldStore from "@/store/CustomedIndex";
-import store from '@/store/index'
+
 
 
 type RecordItem = {
@@ -37,15 +36,11 @@ type RecordItem = {
 
 @Component({
   components: { Layout, NumberPad, Types, FormItem, Tags, NewTag },
-    computed:{
-    recordList(){
-      return oldStore.recordList;
-      }
-  }
-
 })
 export default class Count extends Vue {
-  oldStore = oldStore;
+  get recordList(){
+    return this.$store.state.recordList;
+  }
 
   record: RecordItem = {
     tags: [],
@@ -54,12 +49,16 @@ export default class Count extends Vue {
     amount: 0,
   };
 
+  created(){
+    this.$store.commit('fetchRecords')
+  }
+
   onUpdateNotes(value: string) {
     this.record.notes = value;
   }
 
   saveRecord() {
-    oldStore.createRecord(this.record)
+    this.$store.commit('createRecord', this.record)
   }
 }
 </script>

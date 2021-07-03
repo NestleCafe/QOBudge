@@ -12,15 +12,21 @@
 </template>
 
 <script lang="ts">
-import store from "@/store/CustomedIndex";
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
 @Component
 export default class Count_Tags extends Vue {
-  tagList: Tag[] = store.fetchTags();
   selectedTags: string[] = [];
-  
+
+  get tagList(){
+    return this.$store.state.tagList;
+  }
+
+  created(){
+    this.$store.commit('fetchTags');
+  }
+
   toggle(tag: string) {
     const index = this.selectedTags.indexOf(tag);
     if (index >= 0) {
@@ -28,6 +34,7 @@ export default class Count_Tags extends Vue {
     } else {
       this.selectedTags.push(tag);
     }
+    /* this.$emit('update:value', this.selectedTags); */
   }
 }
 </script>
