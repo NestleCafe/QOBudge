@@ -9,7 +9,6 @@
     <tags />
     {{ record }}
     <types :value.sync="record.type" />
-     {{count}}<button @click="add">+1</button>
   </layout>
 </template>
 
@@ -24,8 +23,8 @@ import Tags from "@/components/Count_Tags.vue";
 import NewTag from "@/components/Count_NewTag.vue";
 
 import { Component } from "vue-property-decorator";
-import store from "@/store/CustomedIndex";
-
+import oldStore from "@/store/CustomedIndex";
+import store from '@/store/index'
 
 
 type RecordItem = {
@@ -39,18 +38,15 @@ type RecordItem = {
 @Component({
   components: { Layout, NumberPad, Types, FormItem, Tags, NewTag },
     computed:{
-    count(){
-      return store.count;
-    }
+    recordList(){
+      return oldStore.recordList;
+      }
   }
 
 })
 export default class Count extends Vue {
-  store = store;
-  add(){
-    return store.addCount();
-  }
-  recordList = store.recordList;
+  oldStore = oldStore;
+
   record: RecordItem = {
     tags: [],
     notes: "",
@@ -63,7 +59,7 @@ export default class Count extends Vue {
   }
 
   saveRecord() {
-    store.createRecord(this.record)
+    oldStore.createRecord(this.record)
   }
 }
 </script>
