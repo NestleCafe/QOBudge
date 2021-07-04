@@ -1,8 +1,8 @@
 <template>
 
     <ul class="types">
-      <li :class="value === '-' && 'selected'" @click="selectType('-')">支出</li>
-      <li :class="value === '+' && 'selected'" @click="selectType('+')">收入</li>
+      <li :class="{selected: value === '-'}" @click="selectType('-')">支出</li>
+      <li :class="{selected: value === '+'}" @click="selectType('+')">收入</li>
     </ul>
 
 </template>
@@ -50,7 +50,7 @@ export default class Count_Types extends Vue {
       left: 0;
       width: 100%;
       height: 4px;
-      background: #333;
+      background: #E03917;
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <layout class-prefix="layout">
+  <layout  class="layout" class-prefix="layout">
     <number-pad :value.sync="record.amount" @submit="saveRecord" />
     <form-item 
       fieldName="备注" 
@@ -63,14 +63,11 @@ export default class Count extends Vue {
 }
 </script>
 
-<style lang="scss">
-.layout-content {
+<style lang="scss" scoped>
+@import "~@/assets/style/helper.scss";
+.layout ::v-deep .layout-content {
   display: flex;
   flex-direction: column-reverse;
   position: relative;
 }
-</style>
-
-<style lang="scss" scoped>
-@import "~@/assets/style/helper.scss";
 </style>

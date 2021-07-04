@@ -1,5 +1,5 @@
 <template>
-    <button class="button" :class=" classPrefix && `${classPrefix}-button`">
+    <button class="button" :class="{[classPrefix + '-button']: classPrefix}">
         <slot/>
     </button>
 </template>
@@ -10,7 +10,8 @@ import {Component, Prop} from "vue-property-decorator";
 @Component
 export default class DButton extends Vue{
 
-@Prop(String) readonly classPrefix: string | undefined;
+@Prop(String) 
+readonly classPrefix: string | undefined;
 
 }
 </script>

@@ -20,7 +20,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-
 import Layout from "@/components/Layout.vue";
 import DButton from "@/components/DButton.vue";
 import { Component } from "vue-property-decorator";

@@ -161,7 +161,7 @@ export default class Count_NumberPad extends Vue {
         font-size: 32px;
       }
       &.ok {
-        float: right;
+        /* float: right; */
         background: $color-highlight;
       }
 

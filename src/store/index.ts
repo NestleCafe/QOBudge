@@ -28,7 +28,7 @@ const store = new Vuex.Store({
     createRecord(state, record: RecordItem){
         const recordDeepClone: RecordItem = deepClone(record);
         recordDeepClone.createdAt = new Date();
-        state.recordList.push(recordDeepClone); //可选链
+        state.recordList.push(recordDeepClone); 
         store.commit('saveRecords')
     },
 
@@ -52,7 +52,7 @@ const store = new Vuex.Store({
         return;
       }
       const id = createID().toString();
-      state.tagList.push({ id, name: name });
+      state.tagList.push({ id, name });
       store.commit('saveTags')
       window.alert("添加成功");
 

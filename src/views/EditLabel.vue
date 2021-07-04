@@ -11,7 +11,7 @@
       :value="currentTag.name" />
     </div>
     <div class="buttonWrapper">
-    <d-button @click.native="remove">删除标签</d-button>
+    <d-button class="DB" class-prefix="DB" @click.native="remove">删除标签</d-button>
     </div>
   </layout>
 </template>
@@ -80,5 +80,9 @@ export default class EditLabel extends Vue {
   text-align: center;
   padding: 16px;
   margin-top: 44-16px ;
+}
+::v-deep .DB-button{
+  background: #E03917;
+  color: white;
 }
 </style>

@@ -34,7 +34,7 @@ export default class Count_Tags extends Vue {
     } else {
       this.selectedTags.push(tag);
     }
-    /* this.$emit('update:value', this.selectedTags); */
+
   }
 }
 </script>
