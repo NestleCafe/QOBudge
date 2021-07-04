@@ -15,5 +15,15 @@ module.exports = {
         
     config.plugin('svg-sprite').use(require('svg-sprite-loader/plugin'), [{plainSprite: true}])
     config.module.rule('svg').exclude.add(dir) // 其他svg loader排除icons目录
-  }
+    
+  },
+  pwa: {
+    iconPaths: {
+        favicon32: 'favicon.ico',
+        favicon16: 'favicon.ico',
+        appleTouchIcon: 'favicon.ico',
+        maskIcon: 'favicon.ico',
+        msTileImage: 'favicon.ico'
+    }
+  },
 }
