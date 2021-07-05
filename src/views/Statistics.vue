@@ -1,17 +1,19 @@
 <template>
   <layout>
     <types :value.sync="type" />
-    <tabs :dataSource="intervalList" :value.sync="interval" />
+    <!-- <tabs :dataSource="intervalList" :value.sync="interval" /> -->
     <ol>
       <li v-for="(group, index) in timeGroupList" :key="index">
-        <h3 class="title">{{judgeDate(group.title)}}</h3>
+        <h3 class="title">{{judgeDate(group.title)}} 
+          <span>总计:{{group.total}}</span>
+          </h3>
         <ol>
           <li v-for="item in group.items" :key="item.id"
             class="record"
           >
             <span>{{toTagString(item.tags)}}</span> 
             <span class="notes">{{item.notes}}</span>
-            <span>¥{{item.amount}}</span>
+            <span>{{type}} ¥{{item.amount}}</span>
           </li>
         </ol>
       </li>
@@ -67,11 +69,12 @@ export default class Statistics extends Vue {
   get timeGroupList(){
     const {recordList} = this;
     if(recordList.length===0){return [];}
-    const newList = deepClone(recordList).sort((a, b) => 
-      dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
-
+    const newList = deepClone(recordList).filter(record => record.type === this.type)
+      .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
+  
+    type Result = {title: string, total?: number, items: RecordItem[]}[]
     //相同日期分成同一组 上面sort排序过了 第一个一定是最近的
-    const result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items:[newList[0]]}];
+    const result:Result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items:[newList[0]]}];
 
     for(let i=1; i<newList.length; i++){
       const current = newList[i]
@@ -82,6 +85,9 @@ export default class Statistics extends Vue {
         result.push({title: dayjs(current.createdAt).format('YYYY-MM-DD'), items: [current]});
       }
     }
+    result.map(group =>{
+      group.total = group.items.reduce((sum, item) => sum + item.amount, 0);
+    })
     return result;
   }
 

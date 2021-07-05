@@ -35,7 +35,7 @@ import { Component, Prop } from "vue-property-decorator";
 
 @Component
 export default class Count_NumberPad extends Vue {
-  @Prop() readonly value!: number;
+  @Prop(Number) readonly value!: number;
   output = this.value.toString();
 
   counting = 0;
@@ -83,8 +83,9 @@ export default class Count_NumberPad extends Vue {
   }
   ok() {
     this.equal();
-    this.$emit("update:value", this.output);
-    this.$emit("submit", this.output);
+    const number = parseFloat(this.output);
+    this.$emit("update:value", number);
+    this.$emit("submit", number);
     this.output = "0";
     window.alert("增加成功！");
   }
