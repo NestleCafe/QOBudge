@@ -20,7 +20,7 @@ import { Component, Prop } from "vue-property-decorator";
 type DataSourceItem = { text: string; value: string };
 
 @Component
-export default class Tabs extends Vue {
+export default class Statistics_Tabs extends Vue {
   @Prop({ required: true, type: Array })
   readonly dataSource!: DataSourceItem[];
   @Prop(String)
