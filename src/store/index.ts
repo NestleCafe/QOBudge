@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import deepClone from "@/lib/deepClone";
-import createID from "@/lib/createID";
+import createTagID from "@/lib/createTagID";
 import router from '@/router';
+import createRecordID from "@/lib/createRecordID"
 
 Vue.use(Vuex)
 type RootState = {
@@ -26,10 +27,11 @@ const store = new Vuex.Store({
         window.localStorage.setItem("recordList", JSON.stringify(state.recordList));
     },
     createRecord(state, record: RecordItem){
-        const recordDeepClone: RecordItem = deepClone(record);
-        recordDeepClone.createdAt = new Date().toISOString();
-        state.recordList.push(recordDeepClone); 
-        store.commit('saveRecords')
+      const recordDeepClone: RecordItem = deepClone(record);
+      recordDeepClone.id = createRecordID().toString();
+      recordDeepClone.createdAt = new Date().toISOString();
+      state.recordList.push(recordDeepClone); 
+      store.commit('saveRecords')
     },
 
 
@@ -51,7 +53,7 @@ const store = new Vuex.Store({
         window.alert("标签名重复！");
         return;
       }
-      const id = createID().toString();
+      const id = createTagID().toString();
       state.tagList.push({ id, name });
       store.commit('saveTags')
       window.alert("添加成功");
