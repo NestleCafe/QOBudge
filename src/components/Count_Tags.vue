@@ -3,8 +3,8 @@
     <ul class="currentTags">
       <li 
         v-for="tag in tagList" :key="tag.id"
-        @click="toggle(tag.id)"
-        :class="{selected: selectedTags.indexOf(tag.id) >= 0}">
+        @click="toggle(tag.name)"
+        :class="{selected: selectedTags.indexOf(tag.name) >= 0}">
         {{ tag.name }} 
       </li>
     </ul>
@@ -34,7 +34,7 @@ export default class Count_Tags extends Vue {
     } else {
       this.selectedTags.push(tag);
     }
-
+    this.$emit('update:value', this.selectedTags);
   }
 }
 </script>

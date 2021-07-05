@@ -5,7 +5,7 @@
     <ol>
       <li v-for="(group, index) in timeGroupList" :key="index">
         <h3 class="title">{{judgeDate(group.title)}} 
-          <span>总计:{{group.total}}</span>
+          <span>总计: ¥ {{group.total}}</span>
           </h3>
         <ol>
           <li v-for="item in group.items" :key="item.id"
@@ -58,7 +58,7 @@ export default class Statistics extends Vue {
   }
 
   toTagString(tags: Tag[]){
-    return tags.length === 0? '无' :tags.join(',')
+    return tags.length === 0 ? '无' :tags.join(',')
   }
   beforeCreate(){
     this.$store.commit('fetchRecords')

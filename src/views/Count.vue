@@ -6,8 +6,8 @@
       @update:value="onUpdateNotes" 
     />
     <new-tag/>
-    <tags />
-    {{ record }}
+    <tags :value.sync="record.tags"/>
+    <!-- {{ record }} -->
     <types :value.sync="record.type" />
   </layout>
 </template>
