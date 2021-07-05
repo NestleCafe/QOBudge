@@ -3,10 +3,10 @@
     <types :value.sync="type" />
     <tabs :dataSource="intervalList" :value.sync="interval" />
     <ol>
-      <li v-for="(group, index) in result" :key="index">
-        <h3 class="title">{{group.title}}</h3>
+      <li v-for="(group, key) in result" :key="key">
+        <h3 class="title">{{judgeDate(group.title)}}</h3>
         <ol>
-          <li v-for="item in group.items" :key="item"
+          <li v-for="item in group.items" :key="item.createdAt"
             class="record"
           >
             <span>{{toTagString(item.tags)}}</span> 
@@ -27,11 +27,33 @@ import Tabs from "@/components/Statistics_Tabs.vue";
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import intervalList from "@/constants/intervalList";
+import dayjs from 'dayjs';
 
 @Component({
   components: { Layout, Types, Tabs },
 })
 export default class Statistics extends Vue {
+  type = "-";
+  interval = "day";
+  intervalList = intervalList;
+
+  judgeDate(date: string){
+    const now = dayjs();
+    const day = dayjs(date);
+
+    if(day.isSame(now, 'day')){
+      return '今天';
+    }else if(day.isSame(now.subtract(1, 'day'), 'day')){
+      return '昨天';
+    }else if(day.isSame(now.subtract(2, 'day'), 'day')){
+      return '前天';
+    }else if(day.isSame(now, 'year')){
+      return day.format('M月D日');
+    }else{
+      return day.format('YYYY年MM月DD日');
+    }
+  }
+
   toTagString(tags: string[]){
     return tags.length === 0? '无' :tags.join(',')
   }
@@ -41,7 +63,6 @@ export default class Statistics extends Vue {
   get recordList(){
     return (this.$store.state as RootState).recordList;
   }
-
   get result(){
     const {recordList} = this;
     type HashTableValue = { title: string, items: RecordItem[] };
@@ -55,9 +76,7 @@ export default class Statistics extends Vue {
     return hashTable;
   }
 
-  type = "-";
-  interval = "day";
-  intervalList = intervalList;
+
 }
 </script>
 
