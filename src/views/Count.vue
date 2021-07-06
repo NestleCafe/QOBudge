@@ -3,7 +3,7 @@
     <number-pad :value.sync="record.amount" @submit="saveRecord" />
     <form-item 
       fieldName="备注" 
-      @update:value="onUpdateNotes" 
+      :value.sync="record.notes"
     />
     <new-tag/>
     <tags :value.sync="record.tags"/>
@@ -50,7 +50,7 @@ export default class Count extends Vue {
   };
 
   created(){
-    this.$store.commit('fetchRecords')
+    this.$store.commit('fetchRecords');
   }
 
   onUpdateNotes(value: string) {
@@ -58,7 +58,16 @@ export default class Count extends Vue {
   }
 
   saveRecord() {
-    this.$store.commit('createRecord', this.record)
+    if(this.record.tags.length ===0 || !this.record.tags){
+      return window.alert('请至少选择一个标签!');
+    }
+
+    if(this.$store.state.createRecordError === null){
+     this.$store.commit('createRecord', this.record);
+     window.alert('增加成功');
+     this.record.notes = '';
+     location.reload()
+    }
   }
 }
 </script>

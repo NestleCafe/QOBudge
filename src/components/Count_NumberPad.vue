@@ -1,9 +1,11 @@
 <template>
   <div class="numberPad">
     <div class="output">
-      <span class="dollar"
-        >¥
-        <span v-if="output !== '0'" class="clear" @click="clear()">清空 </span>
+      <span class="dollar">
+        ¥
+        <span v-if="output !== '0'" class="clear" @click="clear()">
+          清空 
+        </span>
       </span>
 
       {{ output }}
@@ -87,7 +89,6 @@ export default class Count_NumberPad extends Vue {
     this.$emit("update:value", number);
     this.$emit("submit", number);
     this.output = "0";
-    window.alert("增加成功！");
   }
   add() {
     this.counting += parseFloat(this.output);

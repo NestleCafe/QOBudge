@@ -6,15 +6,12 @@ import router from '@/router';
 import createRecordID from "@/lib/createRecordID"
 
 Vue.use(Vuex)
-type RootState = {
-  recordList: RecordItem[],
-  tagList: Tag[],
-  currentTag?: Tag,
-}
+
 const store = new Vuex.Store({
   state: {
     recordList: [] as RecordItem[],
     tagList: [] as Tag[],
+    createRecordError: null,
     currentTag: undefined,
   } as RootState,
 
@@ -40,9 +37,13 @@ const store = new Vuex.Store({
       state.currentTag = state.tagList.filter(tag => tag.id === id)[0]; //filter返回的是数组
     },
     fetchTags(state){
-      state.tagList = JSON.parse(
-        window.localStorage.getItem("tagList") || "[]"
-      );
+      state.tagList = JSON.parse(window.localStorage.getItem("tagList") || "[]");
+      if ( !state.tagList || state.tagList.length === 0){
+        store.commit('createTag', '衣');
+        store.commit('createTag', '食');
+        store.commit('createTag', '住');
+        store.commit('createTag', '行');
+      }
     },
     createTag(state, name: string){
       const names = state.tagList.map(item => item.name);
@@ -56,7 +57,6 @@ const store = new Vuex.Store({
       const id = createTagID().toString();
       state.tagList.push({ id, name });
       store.commit('saveTags')
-      window.alert("添加成功");
 
     },
     updateTag(state, payload: {id: string, name: string}) {

@@ -2,7 +2,7 @@
   <layout>
     <types :value.sync="type" />
     <!-- <tabs :dataSource="intervalList" :value.sync="interval" /> -->
-    <ol>
+    <ol v-if="timeGroupList.length > 0">
       <li v-for="(group, index) in timeGroupList" :key="index">
         <h3 class="title">{{judgeDate(group.title)}} 
           <span>总计: ¥ {{group.total}}</span>
@@ -18,7 +18,10 @@
         </ol>
       </li>
     </ol>
-    
+    <div v-else class="noResult"> 
+      <icon name="null"/>
+      <div>暂时没有相关记录！</div>
+    </div>
   </layout>
 </template>
 
@@ -31,9 +34,10 @@ import { Component } from "vue-property-decorator";
 import intervalList from "@/constants/intervalList";
 import dayjs from 'dayjs';
 import deepClone from '@/lib/deepClone'
+import Icon from "@/components/icon.vue";
 
 @Component({
-  components: { Layout, Types, Tabs },
+  components: { Layout, Types, Tabs, Icon },
 })
 export default class Statistics extends Vue {
   type = "-";
@@ -68,17 +72,23 @@ export default class Statistics extends Vue {
   }
   get timeGroupList(){
     const {recordList} = this;
-    if(recordList.length===0){return [];}
+  
     const newList = deepClone(recordList).filter(record => record.type === this.type)
       .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
   
-    type Result = {title: string, total?: number, items: RecordItem[]}[]
+    if(newList.length===0){return [];}
+
+    type Result = {
+      title: string,
+      total?: number, 
+      items: RecordItem[]
+    }[]
     //相同日期分成同一组 上面sort排序过了 第一个一定是最近的
     const result:Result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items:[newList[0]]}];
 
     for(let i=1; i<newList.length; i++){
-      const current = newList[i]
-      const last = result[result.length - 1]
+      const current = newList[i];
+      const last = result[result.length - 1];
       if(dayjs(last.title).isSame(dayjs(current.createdAt), 'day')){
         last.items.push(current);
       }else{
@@ -117,5 +127,14 @@ export default class Statistics extends Vue {
   margin-left: 16px;
   color: #999; 
   font-size: 14px;
+}
+.noResult{
+  padding: 16px;
+  margin-top: 48px;
+  text-align: center;
+  color: #999;
+  .icon{
+    font-size: 200px;
+  }
 }
 </style>

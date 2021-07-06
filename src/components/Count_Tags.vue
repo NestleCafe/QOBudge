@@ -13,12 +13,11 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import { Component, Prop } from "vue-property-decorator";
 
 @Component
 export default class Count_Tags extends Vue {
   selectedTags: string[] = [];
-
   get tagList(){
     return this.$store.state.tagList;
   }
