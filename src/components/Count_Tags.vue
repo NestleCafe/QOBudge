@@ -45,6 +45,9 @@ export default class Count_Tags extends Vue {
   font-size: 14px;
   padding: 16px;
   flex-grow: 1;
+  height: 18.3vh;
+  overflow-x: auto;
+  overflow-y: auto ;
   display: flex;
   flex-direction: column;
   > .currentTags {
