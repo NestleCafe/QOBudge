@@ -10,6 +10,8 @@ export class TagHelper extends Vue {
       return window.alert("标签名不能为空！");
     }
     this.$store.commit('createTag', tagName)
-    window.alert('添加成功！')
+    if(this.$store.state.createRecordError === null){
+      window.alert('添加成功！')
+    }
   }
 }
