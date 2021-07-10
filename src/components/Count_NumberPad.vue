@@ -42,6 +42,7 @@ export default class Count_NumberPad extends Vue {
 
   counting = 0;
   countingType: string | undefined;
+  countingStatus = false; 
 
   inputContent(event: MouseEvent): void {
     const button = event.target as HTMLButtonElement;
@@ -71,6 +72,11 @@ export default class Count_NumberPad extends Vue {
     if (this.output.indexOf(".") >= 0 && input === ".") {
       return;
     } //防止出现'..'的情况
+    if(this.countingStatus === true){
+      this.output = input;
+      this.countingStatus = false;
+      return;
+    }
     this.output += input;
   }
   remove() {
@@ -82,6 +88,8 @@ export default class Count_NumberPad extends Vue {
   }
   clear() {
     this.output = "0";
+    this.countingType = undefined;
+    this.counting = 0;
   }
   ok() {
     this.equal();
@@ -93,12 +101,14 @@ export default class Count_NumberPad extends Vue {
   add() {
     this.counting += parseFloat(this.output);
     this.countingType = "+";
-    this.output = "0";
+    this.output = this.counting.toString();
+    this.countingStatus = true;
   }
   subtract() {
     this.counting += parseFloat(this.output);
     this.countingType = "-";
-    this.output = "0";
+    this.output = this.counting.toString();
+    this.countingStatus = true;
   }
   equal() {
     if (this.countingType === "+") {
