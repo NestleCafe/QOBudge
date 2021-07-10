@@ -58,6 +58,9 @@ export default class Count extends Vue {
   }
 
   saveRecord() {
+    if(this.record.amount === 0){
+      return window.alert('金额不能为0！');
+    }
     if(this.record.tags.length ===0 || !this.record.tags){
       return window.alert('请至少选择一个标签!');
     }

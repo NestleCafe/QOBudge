@@ -21,7 +21,7 @@
     margin: 0 auto;
   }
   body{
-    background: #F5F5F5;
+    background: #333;
   }
 
 </style>
