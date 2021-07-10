@@ -53,7 +53,9 @@ export default class Count_NumberPad extends Vue {
     if (this.output.indexOf(".") >= 0) {
       const index = this.output.indexOf(".");
       if (this.output[index + 2]) {
-        return; //最多两位小数！
+        if("0123456789".indexOf(input) >= 0 && this.countingStatus === false){
+          return; //最多两位小数！
+        }
       }
     }
 
@@ -119,9 +121,27 @@ export default class Count_NumberPad extends Vue {
       return;
     }
     this.output = this.counting.toString();
-    this.countingType = undefined;
-    this.counting = 0;
+    //浮点数运算结果不精确问题
+    if (this.output.indexOf(".") >= 0) {
+      const index = this.output.indexOf(".");
+      let temp = '';
+      if (this.output[index + 2] !== '0') {
+        for(let i=0;i<=index+2; i++){
+          temp += this.output[i]
+        }
+        this.output = temp;
+      }else{
+        for(let i=0;i<=index+1; i++){
+          temp += this.output[i]
+        }
+        this.output = temp;
+      }
+    }
+      this.countingType = undefined;
+      this.counting = 0;
+    
   }
+  
 }
 </script>
 
