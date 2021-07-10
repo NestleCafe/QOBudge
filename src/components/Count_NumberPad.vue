@@ -101,22 +101,22 @@ export default class Count_NumberPad extends Vue {
     this.output = "0";
   }
   add() {
-    this.counting += parseFloat(this.output);
+    this.counting = (this.counting*100 + parseFloat(this.output)*100) /100;
     this.countingType = "+";
     this.output = this.counting.toString();
     this.countingStatus = true;
   }
   subtract() {
-    this.counting += parseFloat(this.output);
+    this.counting = (this.counting*100 + parseFloat(this.output)*100) /100;
     this.countingType = "-";
     this.output = this.counting.toString();
     this.countingStatus = true;
   }
   equal() {
     if (this.countingType === "+") {
-      this.counting += parseFloat(this.output);
+      this.counting = (this.counting*100 + parseFloat(this.output)*100) /100;
     } else if (this.countingType === "-") {
-      this.counting -= parseFloat(this.output);
+      this.counting = (this.counting*100 - parseFloat(this.output)*100) /100;
     } else {
       return;
     }
@@ -125,12 +125,12 @@ export default class Count_NumberPad extends Vue {
     if (this.output.indexOf(".") >= 0) {
       const index = this.output.indexOf(".");
       let temp = '';
-      if (this.output[index + 2] !== '0') {
+      if (this.output[index + 2] !== '0' &&  this.output[index + 2] !== undefined) {
         for(let i=0;i<=index+2; i++){
           temp += this.output[i]
         }
         this.output = temp;
-      }else{
+      }else if(this.output[index + 1] !== '0' &&  this.output[index + 1] !== undefined){
         for(let i=0;i<=index+1; i++){
           temp += this.output[i]
         }
