@@ -17,11 +17,12 @@
     font-size: 16px;
     background: #F5F5F5;
 
-    max-width: 500px;
+    
     margin: 0 auto;
   }
   body{
-    background: #333;
+    min-width: 500px;
+    overflow-x: hidden;
   }
 
 </style>

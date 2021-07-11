@@ -4,7 +4,7 @@
    <!--  <tabs :dataSource="intervalList" :value.sync="interval" />
    {{interval}} -->
     <div class="chartWrapper" ref="chartWrapper">
-      <chart class="chart" :options="line"/>
+      <chart class="chart"  ref="chart" :options="lineChartOption"/>
      <!--  <chart v-else-if="interval === 'month'"
       class="chart" :options="line"/> -->
     </div>
@@ -106,39 +106,43 @@ export default class Statistics extends mixins(JudgeDate) {
     return result;
   }
 
-  get timeGroupData(){
+  get dateTotalPair(){
     const today = new Date();
     const array = [];
     for(let i=0; i<=29; i++){
       //获取近30天日期
       const date = dayjs(today).subtract(i, 'day').format('YYYY-MM-DD');
       //找到当天的金额
-      const found = _.find(this.recordList, {createdAt: date});
+      const found = _.find(this.timeGroupList, {title: date});
       array.push({
         date: date, 
-        value: found ? found.amount : 0,  //有则统计无则0
+        value: found ? found.total : 0,  //有则统计无则0
         });
     }
     return array.reverse();
   }
 
-  get line(){
-    const array = this.timeGroupData.map(item => item.date);
+  get lineChartOption(){
+    const array = this.dateTotalPair.map(item => item.date);
     for(let i=0; i<array.length; i++){
       array[i] = this.judgeDate(array[i])
     }
     const keys = array;
-    
-    const values = this.timeGroupData.map(item => item.value);
+
+    const values = this.dateTotalPair.map(item => item.value);
     return{
       title:{
         show: true,
-        text: '近30天支出统计',
-        right: '0',
+        text: '近30天统计',
+        right: '50%',
       },
       grid:{
         left: 16,
         right: 16,
+      }, 
+      dataZoom: {
+        start: 80,
+        type: "inside"
       },
       xAxis: {
         type: 'category',
@@ -170,10 +174,6 @@ export default class Statistics extends mixins(JudgeDate) {
               }
             }
           },
-          showBackground: true,
-          backgroundStyle: {
-          color: 'rgba(180, 180, 180, 0.2)'
-          }
         },
       }],
      
@@ -216,12 +216,11 @@ export default class Statistics extends mixins(JudgeDate) {
   }
 }
 .chartWrapper{
-  &::-webkit-scrollbar{
-    display: none;
-  }
-  overflow: auto;
+
+  
+
   .chart{
-   width: 430%;
+    width: 100vw;
   }
 }
 </style>

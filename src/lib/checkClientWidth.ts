@@ -10,7 +10,7 @@ function checkClientWidth() {
       imgWrapper.style.left = "50%";
       imgWrapper.style.transform = "translateX(-50%)";
       imgWrapper.style.background = "rgba(51,51,51,0.6)";
-      imgWrapper.style.width = "500px";
+      imgWrapper.style.width = "100%";
       imgWrapper.style.height = `${document.documentElement.clientHeight}px`;
 
       const img = document.createElement("img");
