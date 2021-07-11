@@ -5,7 +5,7 @@
       fieldName="备注" 
       :value.sync="record.notes"
     />
-    <new-tag/>
+    <new-tag :value.sync="record.createdAt"/>
     <tags :value.sync="record.tags"/>
     <!-- {{ record }} -->
     <types :value.sync="record.type" />
@@ -26,14 +26,14 @@ import { Component } from "vue-property-decorator";
 
 
 
-type RecordItem = {
+/* type RecordItem = {
   tags: string[];
   notes: string;
   type: string;
   amount: number;
-  createdAt?: Date;
+  createdAt?: string;
 };
-
+ */
 @Component({
   components: { Layout, NumberPad, Types, FormItem, Tags, NewTag },
 })
@@ -47,6 +47,7 @@ export default class Count extends Vue {
     notes: "",
     type: "-",
     amount: 0,
+    createdAt: new Date().toISOString(),
   };
 
   created(){

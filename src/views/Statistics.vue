@@ -36,30 +36,17 @@ import dayjs from 'dayjs';
 import deepClone from '@/lib/deepClone'
 import Icon from "@/components/icon.vue";
 
+import { mixins } from "vue-class-component"
+import { JudgeDate }from "@/mixins/JudgeDate"
+
 @Component({
   components: { Layout, Types, Tabs, Icon },
 })
-export default class Statistics extends Vue {
+
+export default class Statistics extends mixins(JudgeDate) {
   type = "-";
   interval = "day";
   intervalList = intervalList;
-
-  judgeDate(date: string){
-    const now = dayjs();
-    const day = dayjs(date);
-
-    if(day.isSame(now, 'day')){
-      return '今天';
-    }else if(day.isSame(now.subtract(1, 'day'), 'day')){
-      return '昨天';
-    }else if(day.isSame(now.subtract(2, 'day'), 'day')){
-      return '前天';
-    }else if(day.isSame(now, 'year')){
-      return day.format('M月D日');
-    }else{
-      return day.format('YYYY年MM月DD日');
-    }
-  }
 
   toTagString(tags: Tag[]){
     return tags.length === 0 ? '无' :tags.join(',')
