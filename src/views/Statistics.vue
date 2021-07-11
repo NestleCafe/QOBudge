@@ -2,7 +2,7 @@
   <layout>
     <types :value.sync="type" />
     <!-- <tabs :dataSource="intervalList" :value.sync="interval" /> -->
-    <e-charts class="chart" :option="x" />
+    <chart :options="x"/>
     <ol v-if="timeGroupList.length > 0">
       <li v-for="(group, index) in timeGroupList" :key="index">
         <h3 class="title">{{judgeDate(group.title)}} 
@@ -39,12 +39,14 @@ import Icon from "@/components/icon.vue";
 import { mixins } from "vue-class-component"
 import { JudgeDate }from "@/mixins/JudgeDate"
 
-import ECharts from "vue-echarts"
-/* import 'echarts/lib/chart/bar' */
-import "echarts"
+/* import ECharts from "vue-echarts"
+import 'echarts/lib/chart/bar'
+import "echarts" */
+
+import Chart from "@/components/Chart.vue"
 
 @Component({
-  components: { Layout, Types, Tabs, Icon, ECharts },
+  components: { Layout, Types, Tabs, Icon, Chart },
 })
 
 export default class Statistics extends mixins(JudgeDate) {
