@@ -9156,11 +9156,6 @@ requires-port@^1.0.0:
   resolved "https://registry.npm.taobao.org/requires-port/download/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
 
-resize-detector@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.npm.taobao.org/resize-detector/download/resize-detector-0.3.0.tgz?cache=0&sync_timestamp=1613821238490&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fresize-detector%2Fdownload%2Fresize-detector-0.3.0.tgz#fe495112e184695500a8f51e0389f15774cb1cfc"
-  integrity sha1-/klREuGEaVUAqPUeA4nxV3TLHPw=
-
 resolve-cwd@^2.0.0:
   version "2.0.0"
   resolved "https://registry.nlark.com/resolve-cwd/download/resolve-cwd-2.0.0.tgz#00a9f7387556e27038eae232caa372a6a59b665a"
@@ -10814,19 +10809,6 @@ vue-class-component@^7.2.3:
   version "7.2.6"
   resolved "https://registry.npm.taobao.org/vue-class-component/download/vue-class-component-7.2.6.tgz#8471e037b8e4762f5a464686e19e5afc708502e4"
   integrity sha1-hHHgN7jkdi9aRkaG4Z5a/HCFAuQ=
-
-vue-demi@^0.9.1:
-  version "0.9.1"
-  resolved "https://registry.nlark.com/vue-demi/download/vue-demi-0.9.1.tgz#25d6e1ebd4d4010757ff3571e2bf6a1d7bf3de82"
-  integrity sha1-Jdbh69TUAQdX/zVx4r9qHXvz3oI=
-
-vue-echarts@^6.0.0-rc.6:
-  version "6.0.0-rc.6"
-  resolved "https://registry.nlark.com/vue-echarts/download/vue-echarts-6.0.0-rc.6.tgz?cache=0&sync_timestamp=1623260068981&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fvue-echarts%2Fdownload%2Fvue-echarts-6.0.0-rc.6.tgz#c12afdbe2e858c941d434996e9bb9b7af3c8c631"
-  integrity sha1-wSr9vi6FjJQdQ0mW6bubevPIxjE=
-  dependencies:
-    resize-detector "^0.3.0"
-    vue-demi "^0.9.1"
 
 vue-eslint-parser@^7.0.0:
   version "7.6.0"
