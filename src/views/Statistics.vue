@@ -2,6 +2,7 @@
   <layout>
     <types :value.sync="type" />
     <!-- <tabs :dataSource="intervalList" :value.sync="interval" /> -->
+    <e-charts class="chart" :option="x" />
     <ol v-if="timeGroupList.length > 0">
       <li v-for="(group, index) in timeGroupList" :key="index">
         <h3 class="title">{{judgeDate(group.title)}} 
@@ -22,6 +23,7 @@
       <icon name="null"/>
       <div>暂时没有相关记录！</div>
     </div>
+
   </layout>
 </template>
 
@@ -29,24 +31,27 @@
 import Layout from "@/components/Layout.vue";
 import Types from "@/components/Count_Types.vue";
 import Tabs from "@/components/Statistics_Tabs.vue";
-import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import intervalList from "@/constants/intervalList";
 import dayjs from 'dayjs';
 import deepClone from '@/lib/deepClone'
 import Icon from "@/components/icon.vue";
-
 import { mixins } from "vue-class-component"
 import { JudgeDate }from "@/mixins/JudgeDate"
 
+import ECharts from "vue-echarts"
+/* import 'echarts/lib/chart/bar' */
+import "echarts"
+
 @Component({
-  components: { Layout, Types, Tabs, Icon },
+  components: { Layout, Types, Tabs, Icon, ECharts },
 })
 
 export default class Statistics extends mixins(JudgeDate) {
   type = "-";
   interval = "day";
   intervalList = intervalList;
+
 
   toTagString(tags: Tag[]){
     return tags.length === 0 ? '无' :tags.join(',')
@@ -88,6 +93,35 @@ export default class Statistics extends mixins(JudgeDate) {
     return result;
   }
 
+  get x(){
+    return{
+      xAxis: {
+      type: 'category',
+      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      },
+      yAxis: {
+          type: 'value'
+      },
+      series: [{
+        data: [150, 230, 224, 218, 135, 147, 260],
+        type: 'line',
+        itemStyle: {
+            normal: {
+              label: {
+                show: true, //开启显示
+                position: 'top', //在上方显示
+                textStyle: { //数值样式
+                color: '#999',
+                fontSize: 14,
+                }
+              }
+            }
+        },
+      }],
+     
+    }
+  }
+
 
 }
 </script>
@@ -123,5 +157,10 @@ export default class Statistics extends mixins(JudgeDate) {
   .icon{
     font-size: 200px;
   }
+}
+.echarts {
+  margin-top: 16px;
+  background: white;
+  height: 400px;
 }
 </style>
