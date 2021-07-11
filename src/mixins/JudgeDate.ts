@@ -17,7 +17,7 @@ export class JudgeDate extends Vue {
     }else if(day.isSame(now, 'year')){
       return day.format('M月D日');
     }else{
-      return day.format('YYYY年MM月DD日');
+      return day.format('YYYY年M月D日');
     }
   }
 }

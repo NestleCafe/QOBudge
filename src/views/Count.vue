@@ -25,15 +25,6 @@ import NewTag from "@/components/Count_NewTag.vue";
 import { Component } from "vue-property-decorator";
 
 
-
-/* type RecordItem = {
-  tags: string[];
-  notes: string;
-  type: string;
-  amount: number;
-  createdAt?: string;
-};
- */
 @Component({
   components: { Layout, NumberPad, Types, FormItem, Tags, NewTag },
 })

@@ -1,8 +1,13 @@
 <template>
   <layout>
     <types :value.sync="type" />
-    <!-- <tabs :dataSource="intervalList" :value.sync="interval" /> -->
-    <chart :options="x"/>
+   <!--  <tabs :dataSource="intervalList" :value.sync="interval" />
+   {{interval}} -->
+    <div class="chartWrapper" ref="chartWrapper">
+      <chart class="chart" :options="line"/>
+     <!--  <chart v-else-if="interval === 'month'"
+      class="chart" :options="line"/> -->
+    </div>
     <ol v-if="timeGroupList.length > 0">
       <li v-for="(group, index) in timeGroupList" :key="index">
         <h3 class="title">{{judgeDate(group.title)}} 
@@ -31,7 +36,7 @@
 import Layout from "@/components/Layout.vue";
 import Types from "@/components/Count_Types.vue";
 import Tabs from "@/components/Statistics_Tabs.vue";
-import { Component } from "vue-property-decorator";
+import { Component, Watch } from "vue-property-decorator";
 import intervalList from "@/constants/intervalList";
 import dayjs from 'dayjs';
 import deepClone from '@/lib/deepClone'
@@ -50,10 +55,15 @@ import Chart from "@/components/Chart.vue"
 })
 
 export default class Statistics extends mixins(JudgeDate) {
+  
   type = "-";
   interval = "day";
   intervalList = intervalList;
-
+  
+  mounted(){
+    const div = (this.$refs.chartWrapper as HTMLDivElement)
+    div.scrollLeft = div.scrollWidth;
+  }
 
   toTagString(tags: Tag[]){
     return tags.length === 0 ? '无' :tags.join(',')
@@ -95,35 +105,89 @@ export default class Statistics extends mixins(JudgeDate) {
     return result;
   }
 
-  get x(){
+ /*  get bar(){
     return{
+      grid:{
+        left: 16,
+        right: 16,
+      },
       xAxis: {
-      type: 'category',
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        axisTick: {
+          alignWithLabel: true
+        }
       },
       yAxis: {
-          type: 'value'
+        type: 'value',
+        show: false,
       },
       series: [{
+        symbolSize: 10,
         data: [150, 230, 224, 218, 135, 147, 260],
-        type: 'line',
+        type: 'bar',
         itemStyle: {
-            normal: {
-              label: {
-                show: true, //开启显示
-                position: 'top', //在上方显示
-                textStyle: { //数值样式
-                color: '#999',
-                fontSize: 14,
-                }
+          normal: {
+            label: {
+              show: true, //开启显示
+              position: 'top', //在上方显示
+              textStyle: { //数值样式
+              color: '#999',
+              fontSize: 14,
               }
             }
+          },
+          showBackground: true,
+          backgroundStyle: {
+          color: 'rgba(180, 180, 180, 0.2)'
+          }
         },
       }],
      
     }
   }
-
+ */
+  get line(){
+    return{
+      grid:{
+        left: 16,
+        right: 16,
+      },
+      xAxis: {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        axisTick: {
+          alignWithLabel: true
+        }
+      },
+      yAxis: {
+        type: 'value',
+        show: false,
+      },
+      series: [{
+        symbolSize: 10,
+        data: [150, 230, 224, 218, 135, 147, 260],
+        type: 'line',
+        itemStyle: {
+          normal: {
+            label: {
+              show: true, //开启显示
+              position: 'top', //在上方显示
+              textStyle: { //数值样式
+              color: '#999',
+              fontSize: 14,
+              }
+            }
+          },
+          showBackground: true,
+          backgroundStyle: {
+          color: 'rgba(180, 180, 180, 0.2)'
+          }
+        },
+      }],
+     
+    }
+  }
 
 }
 </script>
@@ -160,9 +224,13 @@ export default class Statistics extends mixins(JudgeDate) {
     font-size: 200px;
   }
 }
-.echarts {
-  margin-top: 16px;
-  background: white;
-  height: 400px;
+.chartWrapper{
+  &::-webkit-scrollbar{
+    display: none;
+  }
+  overflow: auto;
+  .chart{
+   width: 430%;
+  }
 }
 </style>

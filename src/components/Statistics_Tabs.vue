@@ -59,9 +59,6 @@ export default class Statistics_Tabs extends Vue {
       justify-content: center;
       align-items: center;
       position: relative;
-      &:not(:last-child){
-          border-right: 1px solid #333;
-      }
       &.selected {
         background: #333;
         color: white;

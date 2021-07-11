@@ -18,8 +18,9 @@
 .layout-wrapper{
     display: flex;
     flex-direction: column;
-    max-height: 100vh;
+    height: 100vh;
     overflow: auto;
+    width: 100vw;
 }
 .content{
     flex-grow: 1;
