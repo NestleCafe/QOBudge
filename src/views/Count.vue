@@ -23,7 +23,7 @@ import Tags from "@/components/Count_Tags.vue";
 import NewTag from "@/components/Count_NewTag.vue";
 
 import { Component } from "vue-property-decorator";
-
+import dayjs from 'dayjs'
 
 @Component({
   components: { Layout, NumberPad, Types, FormItem, Tags, NewTag },
@@ -38,7 +38,7 @@ export default class Count extends Vue {
     notes: "",
     type: "-",
     amount: 0,
-    createdAt: new Date().toISOString(),
+    createdAt: dayjs(new Date()).format('YYYY-MM-DD'),
   };
 
   created(){

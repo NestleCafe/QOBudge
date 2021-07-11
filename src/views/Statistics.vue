@@ -41,8 +41,9 @@ import intervalList from "@/constants/intervalList";
 import dayjs from 'dayjs';
 import deepClone from '@/lib/deepClone'
 import Icon from "@/components/icon.vue";
-import { mixins } from "vue-class-component"
-import { JudgeDate }from "@/mixins/JudgeDate"
+import { mixins } from "vue-class-component";
+import { JudgeDate }from "@/mixins/JudgeDate";
+import _ from 'lodash'
 
 /* import ECharts from "vue-echarts"
 import 'echarts/lib/chart/bar'
@@ -105,49 +106,25 @@ export default class Statistics extends mixins(JudgeDate) {
     return result;
   }
 
- /*  get bar(){
-    return{
-      grid:{
-        left: 16,
-        right: 16,
-      },
-      xAxis: {
-        type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-        axisTick: {
-          alignWithLabel: true
-        }
-      },
-      yAxis: {
-        type: 'value',
-        show: false,
-      },
-      series: [{
-        symbolSize: 10,
-        data: [150, 230, 224, 218, 135, 147, 260],
-        type: 'bar',
-        itemStyle: {
-          normal: {
-            label: {
-              show: true, //开启显示
-              position: 'top', //在上方显示
-              textStyle: { //数值样式
-              color: '#999',
-              fontSize: 14,
-              }
-            }
-          },
-          showBackground: true,
-          backgroundStyle: {
-          color: 'rgba(180, 180, 180, 0.2)'
-          }
-        },
-      }],
-     
+  get timeGroupData(){
+    const today = new Date();
+    const array = [];
+    for(let i=0; i<=29; i++){
+      //获取近30天日期
+      const date = dayjs(today).subtract(i, 'day').format('YYYY-MM-DD');
+      //找到当天的金额
+      const found = _.find(this.recordList, {createdAt: date});
+      array.push({
+        date: date, 
+        value: found ? found.amount : 0,  //有则统计无则0
+        });
     }
+    return array.reverse();
   }
- */
+  
   get line(){
+    const keys = this.timeGroupData.map(item => item.date);
+    const values = this.timeGroupData.map(item => item.value);
     return{
       grid:{
         left: 16,
@@ -155,7 +132,7 @@ export default class Statistics extends mixins(JudgeDate) {
       },
       xAxis: {
         type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        data: keys,
         axisTick: {
           alignWithLabel: true
         }
@@ -166,7 +143,7 @@ export default class Statistics extends mixins(JudgeDate) {
       },
       series: [{
         symbolSize: 10,
-        data: [150, 230, 224, 218, 135, 147, 260],
+        data: values,
         type: 'line',
         itemStyle: {
           normal: {
