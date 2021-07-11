@@ -17,8 +17,19 @@ https://nestlecafe.github.io/QOBudge-website/
 
 或扫码
 
-
 ![QRCode](https://i.loli.net/2021/07/05/D41oJqUO8aSWn69.png)
+
+
+
+## 预览
+
+![统计页面](https://i.loli.net/2021/07/12/7Q2whWLGDdFinAM.jpg)
+
+![统计页面](https://i.loli.net/2021/07/12/QYzIWujgMH7qXnZ.jpg)
+
+<img src="https://i.loli.net/2021/07/12/D7zVN4b8WPHmpe6.jpg" alt="Screenshot_2021-07-12-02-47-10-79" style="zoom:50%;" />
+
+![标签页面](https://i.loli.net/2021/07/12/6gcl2PNH9rD4F8p.jpg)
 
 ## Project setup
 
