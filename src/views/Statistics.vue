@@ -121,11 +121,21 @@ export default class Statistics extends mixins(JudgeDate) {
     }
     return array.reverse();
   }
-  
+
   get line(){
-    const keys = this.timeGroupData.map(item => item.date);
+    const array = this.timeGroupData.map(item => item.date);
+    for(let i=0; i<array.length; i++){
+      array[i] = this.judgeDate(array[i])
+    }
+    const keys = array;
+    
     const values = this.timeGroupData.map(item => item.value);
     return{
+      title:{
+        show: true,
+        text: '近30天支出统计',
+        right: '0',
+      },
       grid:{
         left: 16,
         right: 16,
@@ -135,7 +145,11 @@ export default class Statistics extends mixins(JudgeDate) {
         data: keys,
         axisTick: {
           alignWithLabel: true
-        }
+        },
+        axisLabel:{
+          interval:0,
+          rotate:40,
+        },
       },
       yAxis: {
         type: 'value',
